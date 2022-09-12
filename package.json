@@ -1,6 +1,6 @@
 {
-  "name": "smartdash",
-  "version": "1.0.0",
+  "name": "smartdasher",
+  "version": "1.0.3",
   "description": "Tools for generating dynamic dashboard systems.",
   "main": "\"./src/app.js\"",
   "scripts": {
@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/pasoneto/smartdash/issues"
   },
-  "homepage": "https://github.com/pasoneto/smartdash#readme"
+  "homepage": "https://github.com/pasoneto/smartdash#readme",
+  "dependencies": {
+    "browserify": "^17.0.0"
+  }
 }
