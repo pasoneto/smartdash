@@ -1,0 +1,36 @@
+/*Dimension selectors*/
+.dimensionSelector{
+  height: 13vh;
+  width: 80%;
+  margin: 1px;
+  opacity: 1;
+  background-color: rgba(38,38,53,255);
+  stroke: rgb(55, 110, 179);
+  stroke-width: 0;
+  pointer-events: all;
+}
+
+/*Statistics selector box*/
+#statisticsSelector{
+ margin: 1px;
+ height: 13vh;
+ width: 19.5%;
+ border-radius: 10px;
+ opacity: 1;
+ background-color: rgba(38,38,53,255);
+ stroke: rgb(55, 110, 179);
+ stroke-width: 0;
+ pointer-events: all;
+}
+
+/*Dropdown buttons*/
+.dropdown-btn {
+  float: left
+}
+#dropdown-btn {
+  float: left
+}
+
+#selectedVariables{
+  margin-top: 10px
+}

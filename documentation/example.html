@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="../styles/stylesGeneral.css">
+    <link rel="stylesheet" href="../styles/stylesMap.css">
+    <link rel="stylesheet" href="../styles/stylesGraph.css">
+    <link rel="stylesheet" href="../styles/stylesSelectors.css">
+    <link rel="stylesheet" href="../styles/stylesBoxSelector.css">
+    <link rel="stylesheet" href="../styles/checkBoxes.css">
+    <link rel="stylesheet" href="../styles/stylesMobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+</body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <script src="../src/generateHTMLstructure.js"></script>
+  <script src="../tt/dataProcess.js"></script>
+  <script src="./ficData.js"></script>
+  <script src="../src/dataProcessUtils.js"></script>
+  <script src="../src/graphFunctions.js"></script>
+  <script src="../src/leafLetFunctions.js"></script>
+  <script src="../src/mapFunctions.js"></script>
+  <script src="../src/dropdownSelection.js"></script>
+  <script src="../src/checkBoxSelectors.js"></script>
+
+<script>
+    var title = 'Title'
+    var logo = './assets/images/logo-generic.png'
+    initiateDashboard(title, logo)
+    
+    var [categories, options] = extractCategoriesAndOptions(data, dependentVariableName = 'value')
+    generateCheckBoxes(categories, options, 'boxTop', data)
+    
+    document.getElementById("buttonDimensionSelector").onclick = function(){
+        showBoxSelector("boxTop")
+        wrapGraph(checkedValues, categories, filteredData)
+        displayNonGraphs(filteredData)
+    }
+    
+    var checkedValues = checkedValuesObjectGenerator(categories)
+    
+    checkBoxVerificationSystem(categories, checkedValues, data, filterDataByCheckBox, exception = "statistic")
+
+    //Add back function to show checkboxes div
+    document.getElementById("selectDimensionButton").onclick = function(){
+      showBoxSelector("boxTop")
+      showBoxSelector("dimmer") //Hide box with checkboxes
+    }
+    //Once data has been fetched and checkboxes created, Select dimension button will receive the following functions
+    var buttonsRenderGraph = document.querySelectorAll(`[id^="buttonDimensionSelector"]`)
+    //Applying render function to these buttons
+    for(k in buttonsRenderGraph){
+      buttonsRenderGraph[k].onclick = function(){
+        showBoxSelector("boxTop") //Hide box with checkboxes
+        showBoxSelector("dimmer") //Hide box with checkboxes
+        wrapGraph(checkedValues, categories, filteredData)
+        displayNonGraphs(window.filteredData, whereToAppend = "graphsContainer", textTranslations, language)
+      }
+    }
+    
+    var multi = ["year", "region"];//Selecting two multiclass classifiers
+    var single = categories.filter(i => multi.includes(i) == false)//Establishing the single classifiers
+
+    //Running click simulation
+    simulateSelection(multi, single)
+    wrapGraph(checkedValues, categories, filteredData)
+</script>
+</html>

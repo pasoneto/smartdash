@@ -1,0 +1,94 @@
+body{
+  margin: 0;
+  padding: 0;
+  font-family: Georgia, serif;
+}
+h1 {
+  margin: 0;
+  margin-top: 5px;
+}
+h3 {
+  font-size: 1vw;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.header {
+  padding: 1px;
+  text-align: left;
+  background: #1abc9c;
+  background: white;
+  color: white;
+  font-size: 15px;
+  background: #0088A9;
+  margin-top: 0px;
+  width: 100vw;
+  margin-bottom: 0px;
+  min-height: 115px;
+}
+#title{
+  margin-top: 10px;
+  margin-left: 10px;
+}
+#footer{
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3%;
+  text-align: right;
+}
+
+#footerText{
+  margin-right: 10px;
+  margin-top: 3px;
+  font-style: italic
+}
+
+/* Create four equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 76vh;
+}
+#logo{
+  margin-top: 20px;
+  margin-left: 10px;
+  width: 134px;
+}
+button {
+  position: relative;
+  background: #0088A9;
+  border: none;
+  font-size: 15px;
+  color: #FFFFFF;
+  padding: 5px;
+  text-align: center;
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  /*margin-top: 10px;*/
+}
+button:after {
+  content: "";
+  background: #f1f1f1;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+button:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}

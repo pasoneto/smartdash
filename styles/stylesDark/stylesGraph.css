@@ -1,0 +1,84 @@
+#graphsContainer{
+  background-color: rgba(38,38,53,255)
+}
+.graphBox {
+  height: 35vh;
+  margin: 5px;
+  margin-bottom: 5px;
+  width: 49%;
+  opacity: 1;
+  background: rgb(42, 49, 67);
+  background: rgb(98, 110, 212, 0.5);
+  stroke: rgb(55, 110, 179);
+  stroke-width: 0;
+  pointer-events: all;
+  border-radius: 25px;
+}
+.graphSingleBox {
+  margin: 5px;
+  width: 100%;
+  height: 65vh;
+  opacity: 1;
+  background: rgb(42, 49, 67);
+  background: rgb(98, 110, 212, 0.5);
+  stroke: rgb(55, 110, 179);
+  stroke: rgb(55, 110, 179);
+  stroke-width: 0;
+  pointer-events: all;
+  border-radius: 25px;
+}
+
+/* Pie charts */
+.graphBox3 {
+  height: 35vh;
+  margin: 5px;
+  width: 32%;
+  opacity: 1;
+  background: rgb(42, 49, 67);
+  background: rgb(98, 110, 212, 0.5);
+  stroke: rgb(55, 110, 179);
+  stroke: rgb(55, 110, 179);
+  stroke-width: 0;
+  pointer-events: all;
+  border-radius: 25px;
+}
+/* End of pie charts */
+
+.graphBox.mainGraph {
+  width: 98%;
+}
+
+.graphsBox { 
+  width: 80%;
+  margin: 1px;
+  border-radius: 10px;
+  margin-bottom: 2px;
+  opacity: 1;
+  background: rgb(42, 49, 67);
+  background: rgb(98, 110, 212, 0.5);
+  stroke: rgb(55, 110, 179);
+  stroke: rgb(55, 110, 179);
+  stroke-width: 0;
+  pointer-events: all;
+}
+
+#boxTopMap {
+  display: none;
+  padding: 10px;
+  z-index: 1000;
+  width: 60%;
+  height: 35%;
+  position: absolute;
+  top:20%;
+  bottom: 0;
+  left: 20%;
+  overflow:auto;
+  opacity: 1;
+  background: rgb(42, 49, 67);
+  background: rgb(98, 110, 212);
+  stroke: rgb(55, 110, 179);
+  stroke: rgb(55, 110, 179);
+  stroke-width: 0;
+  pointer-events: all;
+  border-radius: 25px;
+}

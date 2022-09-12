@@ -1,0 +1,91 @@
+/*Map styles*/
+.area{
+  fill : lightgray 
+}
+.areaAvailable {
+  fill: lightblue
+}
+.areaAvailable:hover {
+  fill: blue
+}
+#new-map {
+  margin: auto;
+}
+.mapBox  {
+  width: 19.5%;
+  margin: 1px;
+  border-radius: 10px;
+  resize:none;
+  opacity: 1;
+  background: rgb(255, 255, 255);
+  stroke: rgb(55, 110, 179);
+  stroke-width: 0;
+  pointer-events: all;
+}
+#map-chart {
+  margin: 0;
+  width: 200px;
+  height: 68vh;
+  opacity: 1;
+  background: rgb(98, 110, 212);
+  stroke: rgb(55, 110, 179);
+  stroke-width: 0;
+  pointer-events: all;
+}
+#graph {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  opacity: 1;
+  background: rgb(98, 110, 212);
+  stroke: rgb(55, 110, 179);
+  stroke-width: 0;
+  pointer-events: all;
+}
+.h4 {
+    color: #777;
+    line-height: 0px;
+}
+
+/*Map styles*/
+
+/*Tip for mapBox*/
+#tip-container {
+  z-index: 500;
+  display: none;
+	width: 40px;
+	height: 20px;
+	position: absolute;
+  top:20%;
+  bottom: 0;
+  left: 20%;
+	margin-top: -1px;
+	margin-left: -20px;
+  overflow:auto;
+	pointer-events: none;
+}
+#popup-tip {
+	width: 17px;
+	height: 17px;
+	padding: 1px;
+	margin: -10px auto 0;
+	pointer-events: auto;
+	-webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+}
+#popup-tip {
+  background: rgb(98, 110, 212);
+	color: #333;
+	box-shadow: 0 3px 3px rgba(0,0,0,0.4);
+}
+/*End of tip for mapBox*/
+.leaflet-container.leaflet-retina.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag{
+  opacity: 1;
+  background-color: rgba(38,38,53,255);
+  stroke: rgb(55, 110, 179);
+  stroke-width: 0;
+}
+.leaflet-interactive{
+  stroke: rgb(255, 255, 255);
+  background-color: rgba(38,38,53,0);
+  opacity: 1;
+}

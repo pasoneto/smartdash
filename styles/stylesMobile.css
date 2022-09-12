@@ -1,0 +1,108 @@
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 900px) {
+  .graphBox {
+    height: 32vh;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+  #boxTop {
+    display: none;
+    z-index: 1000;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    overflow:auto;
+    resize: both;
+    align-items: center;
+  }
+  .column  {
+    width: 100%;
+    height: auto;
+  }
+  .graphBox {
+    height: 55vh;
+  }
+  .graphBox.mainGraph {
+    width: 100%;
+  }
+  #pieChartsContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+  }
+  #mainGraphs{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 20px;
+  }
+  .dimensionSelector{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: fit-content;
+    width: 100%; /*Mobile has no map selector*/
+    margin: 1px;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    background-color: #DBEDF9;
+  }
+  #selectDimensionButton{
+    width: 100%;
+  }
+  #selectedVariables{
+    margin-top: 10px;
+    text-align: center;
+  }
+  #previousDependent {
+    width: 100%
+  }
+  #nextDependent {
+    width: 100%
+  }
+  #statisticsSelector{ /*Mobile has no map selector*/
+    display: none
+  }
+  .mapBox  {
+    display: none
+  }
+  #graphsContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /*Spacing between rows*/
+    width: 100%
+  }
+  #shareDashboardButton{
+    margin-left: 0;
+  }
+  .header{
+    height: fit-content;
+  }
+  ul{
+    -moz-column-count: 1;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 1;
+    -webkit-column-gap: 20px;
+    column-count: 1;
+    column-gap: 20px;
+    list-style-type: none;
+    margin-left: 60px;
+    font-size: 25px;
+  }
+  li{
+    margin-bottom: 5px;
+  }
+}

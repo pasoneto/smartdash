@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>EE Dashboard</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="https://portal.mtt.fi/portal/page/portal/taloustohtori/Kuvat/Luke-economydoctor-213x150px.png">  
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- FontAwesome JS -->
+    <script defer src="assets/fontawesome/js/all.js"></script>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">  
+    <link rel="stylesheet" href="assets/plugins/simplelightbox/simple-lightbox.min.css">
+      
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="./assets/css/styles.css">
+    
+</head> 
+
+<body class="body-green">
+    <div class="page-wrapper">
+        <!-- ******Header****** -->
+        <header id="header" class="header">
+            <div class="container">
+                <div class="branding">
+                    <h1 class="logo">
+                        <a href="index.html">
+                            <span aria-hidden="true" class="icon_documents_alt icon"></span>
+                            <span class="text-highlight">ED</span><span class="text-bold">Dashboard</span>
+                        </a>
+                    </h1>
+                    
+                </div><!--//branding-->
+                
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Quick Start</li>
+                </ol>
+                
+                
+            </div><!--//container-->
+        </header><!--//header-->
+        <div class="doc-wrapper">
+            <div class="container">
+                <div id="doc-header" class="doc-header text-center">
+                    <h1 class="doc-title"><i class="icon fa fa-paper-plane"></i> Quick Start</h1>
+                    <div class="meta"><i class="far fa-clock"></i> Last updated: July 4th, 2022</div>
+                </div><!--//doc-header-->
+                <div class="doc-body row">
+                    <div class="doc-content col-md-9 col-12 order-1">
+                        <div class="content-inner">
+                            <section id="installation-section" class="doc-section">
+                                <h2 class="section-title">Installation</h2>
+                                    <div class="code-block">
+                                        <h6>Download the package from the terminal</h6>
+                                        <p><code>git clone https://github.com/pasoneto/lukeDashboard</code></p>
+                                </div><!--//section-block-->
+                            
+                            <section id="code-section" class="doc-section">
+                                <h2 class="section-title">Start html framework</h2>
+                                    <div class="section-block">
+                                    <p>
+                                        This tutorial assumes that you create an HTML file inside the /documentation folder. In case you choose to work from a different directory, remember to change the paths when calling JavaScript scripts.
+                                    </p>
+                                    <p>
+                                        Let's start by calling all the modules from the Dashboard library. Just paste the code below on an empty HTML file.  
+                                    </p>
+                                    <div class="code-block">
+                                        <pre><code class="language-markup">&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesGeneral.css"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesMap.css"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesGraph.css"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesSelectors.css"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesBoxSelector.css"&gt;
+    &lt;link rel="stylesheet" href="../styles/checkBoxes.css"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesMobile.css"&gt;
+    &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;/body&gt;
+
+  &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/generateHTMLstructure.js"&gt;&lt;/script&gt;
+  &lt;script src="../tt/dataProcess.js"&gt;&lt;/script&gt;
+  &lt;script src="./ficData.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/dataProcessUtils.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/graphFunctions.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/leafLetFunctions.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/mapFunctions.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/dropdownSelection.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/checkBoxSelectors.js"&gt;&lt;/script&gt;
+
+&lt;/html&gt;
+</code></pre>
+</div><!--//code-block-->
+                                    <p>
+                                        All content of your dashboard needs to be placed inside 'boxes' within a webpage. This initiates a pre-defined layout that comes with the package. You can, of course, change this layout to fit with any ideas that you have. The colors, sizes and positions of each element in the dasbhard can also be determined by you. Here, we use a pre-defined version of the styling, which you can consult and edit throughout <a href="https://github.com/pasoneto/lukeDashboard/tree/master/styles" target="_blank">these</a> CSS files.
+                                    </p>
+                                    <p>
+                                        Generating the overall pre-defined framework is easy. We just call the function initiateDashboard(). Notice that we also add the generateHTMLstructure.js file to the header of the document. 
+                                    </p>
+                                    <div class="code-block">
+                                        <pre><code class="language-javascript">initiateDashboard()
+</code></pre>
+</div><!--//code-block-->
+                                    <p>
+                                        Now we generate the containers which will hold the graphs. For that, we need to add the graphing functions.
+                                        whereToAppend relates to the div where the graph boxes will be appended. nMulticlassifiers means the number of factors (or classifiers) with two or more subclasses. We will get back to it in the data-processing stage of this tutorial.
+                                    </p>
+
+<div class="code-block">
+<pre><code class="language-javascript">renderGraphBoxes(whereToAppend = 'graphsContainer', nMulticlassClassifiers = 2)
+</code></pre>
+</div><!--//code-block-->
+</section><!--//doc-section-->
+
+                            <section id="data-handling-section" class="doc-section">
+                                <h2 class="section-title">Data handling</h2>
+                                <div class="section-block">
+                                <p>
+                                    To populate the dashboard, we need to have data. This system works with JSON format, and you can input any type of data as long as it is in the format displayed below. As you can see, there are 4 classifiers (statistic, year, region, and size), and each one of these classifiers can be associated with any number of categorical variables (e.g. year can be 2018, 2019, 2020, etc...).
+                                </p>
+<div class="code-block">
+<pre><code class="language-javascript">var data = [{
+        "statistic": "mean",
+        "value": 690606.5,
+        "year": 20,
+        "region": 11,
+        "size": big,
+    },
+    {
+        "statistic": "median",
+        "value": 699404.5,
+        "year": 21,
+        "region": 10,
+        "size": small,
+    },
+    ... 
+    ]
+</code></pre>
+</div><!--//code-block-->
+                                <p>
+                                    Importantly, the system assumes that you have full factorial data. This means that there is data -null or not- for all the combinations between levels of classifying factors. For instance, if you have year (2018 vs 2019) and size (big vs small) as classifying factors, there should be one value for each possible combination of these variables (e.g., 2018/Big, 2018/Small; 2019/Big, 2019/Small).
+                                </p>
+
+                                <p>
+                                    For the purpose of this tutorial, we have already created a ficticious dataset, which you have already imported by adding the script ficData.js to the header of your HTML page, as shown in the first code block.
+                                </p>
+
+                                <p>
+                                    The idea of the dashboard is to enable users to make selections of the data, and combine different classifiers between each other. For instance, the user can choose to see only values for year 2021 and regions 10 and 11. Or he could choose to compare values of years 2020 and 2021 for region 10.
+                                </p>
+                                <p>
+                                    In order to enable such choices, we need to know which classifiers are available, and what are the values associated with each one of them. This is what we are doing in the code below. The parameter "dependentVariableName" indicates the key from the data object which holds the value that you want to plot in your dashboard. In this case, it is "value", as you can see by calling console.log(data).
+                                </p>
+<div class="code-block">
+<pre><code class="language-javascript">//Extract classifiers (e.g., year, size, etc...) and options (e.g., 2021, 2022, big, smal, etc...).
+var [categories, options] = extractCategoriesAndOptions(data, dependentVariableName = 'value')
+</code></pre>
+</div><!--//code-block-->
+
+                                <p>
+                                    If you console.log categories and options, you should see all categories, as well as all levels associated with each one of them. Now we can use these variables as input to the function which will enable users to choose classifiers which will appera in their dashboard
+                                </p>
+
+
+<div class="code-block">
+<pre><code class="language-javascript">var whereToApend = 'boxTop' //Where to show checkbox selections
+generateCheckBoxes(categories, options, whereToAppend, data)
+</code></pre>
+</div><!--//code-block-->
+
+<p>
+    We have generated the checkboxes in a hidden div. To enable users to display and hide their checkbox selectors, we add an onclick function to one of the pre-defined buttons in the HTML page.
+</p>
+
+
+<div class="code-block">
+<pre><code class="language-javascript">document.getElementById("buttonDimensionSelector").onclick = function(){
+    showBoxSelector("boxTop") //Shows or hides box with checkboxes
+}
+</code></pre>
+</div><!--//code-block-->
+
+<p>
+    Now, if you click the button "Select dimensions", you should see a box with checkboxes, where the user can select any category and level associated with a given dataset.
+</p>
+<p>
+    We are almost ready to plot the data. However, given the problem of multidimensionality (the possibility that you data may have many classifiers, with many levels within each of them), we have created a set of functions which restrict how many multi-level dimensions the user selects. For instance, if you choose to see all years and all statistics, you cannot choose to see all sizes too. Otherwise, we would have to plot a huge number of graphs, with many different colors, and it is likely that the dashboard would become unintelligible.
+</p>
+
+<p>
+    In order to filter the data, we pass a function called filterDataByCheckBox, which will simply filter the data based on the values that the user selected in the checkboxes. We define this function separately, so you can define your own filtering function, if you need. As a result of this function, there will be a global variable called filteredData, which will be updated everytime the user clicks or unclicks any of the checkboxes.
+</p>
+
+<div class="code-block">
+<pre><code class="language-javascript">var checkedValues = checkedValuesObjectGenerator(categories) //Creates empty object which receives boxes that can be checked.
+
+var exception = "statistic" //Any category that you wish to keep as single-selector. Here we chose statistic as an ilustration, and in this case, the user will only be able to select mean or median.
+
+//Establishes checkbox verification system. Multiple or single selection
+checkBoxVerificationSystem(categories, checkedValues, data, filterDataByCheckBox, exception = exception)
+</code></pre>
+</div><!--//code-block-->
+
+<p>
+    Now we are able to explain what we said in the beginning of the tutorial, about the renderGraphBoxes function. There you can determine how many multi-level classifiers your system will allow. We have deliberatelly chosen to enable either 1 or 2, due to the problem of multidimensionality. So, depending on the number of multiclasses that your system allows, pass that variable accordingly.
+</p>
+
+                            </section><!--//doc-section-->
+                            <section id="graphing-section" class="doc-section">
+                                <h2 class="section-title">Graphing</h2>
+                                <div class="section-block">
+                                    <p>
+                                        With the filtered data accessible as a global variable (filteredData object), we can start plotting the graphs. For this, we are using Chart.js library. Add the library to your header. Now we need to process the data to feed it to the graphing system.
+                                    </p>
+                                    <p>
+                                        Now that we have the selected values and filtered data, we use the function wrapGraph() to call out the graphs in our system. This function wraps up many other graph-related functions, and there are many possibilities of customizing your graph (graph-type, where to display each graph, how many selections should be allowed, etc...). In this tutorial we show one -default- possibility.
+                                        We add the wrapGraph function to the button inside the checkbox selector, so that when the user makes a selection, the gbraphs will be displayed.
+                                    </p>
+
+<div class="code-block">
+<pre><code class="language-javascript">document.getElementById("buttonDimensionSelector").onclick = function(){
+    showBoxSelector("boxTop") //Shows or hides box with checkboxes
+    wrapGraph(checkedValues, categories, filteredData)
+}
+</code></pre>
+                                    <p>
+                                        When the user makes a selection of the checkboxes, the system should now show the graphs. Depending on how many multi-class classifiers have been selected, a different number of graph boxes will appear. This is defined in our generic wrapGraph function. You can check the source code and the documentation to see how it works.
+                                    </p>
+                                </div><!--//section-block-->                                
+                            </section><!--//doc-section-->
+
+                            <section id="missing-handling-section" class="doc-section">
+                                <h2 class="section-title">Handle missing data</h2>
+                                <div class="section-block">
+                                    <p>
+                                        Sometimes the user can make a selection of variables which lead to missing data. The function displayNonGraph() verifies if the selection leads only to missing values and, if yes, renders a message on the screen. The function runs every time the user clicks "Done" inside the checkbox selector, as shown below.
+                                    </p> 
+<div class="code-block">
+<pre><code class="language-javascript">document.getElementById("buttonDimensionSelector").onclick = function(){
+    showBoxSelector("boxTop") //Shows or hides box with checkboxes
+    wrapGraph(checkedValues, categories, filteredData)
+    /*-->*/displayNonGraphs(filteredData, whereToAppend = "graphsContainer") //graphsContainer is the id of the div where the message will be displayed.
+}
+</code></pre>
+<p>
+    In the case of this dataset, there are no mean values for any region with size small and year 18. If you select these variables in the checkboxes, you should be able to see the message displayed on the screen.
+</p>
+                            </section>
+                        </div><!--//content-inner-->
+
+                            <section id="automatic-selection" class="doc-section">
+                                <h2 class="section-title">Automatic selection</h2>
+                                <div class="section-block">
+                                    <p>
+                                        It might be the case that you want to enable a pre-selection of variables, which will generate the graphs as soon as the user accesses the page. In this case, we use the function simulateSelection() as shown below. This function automates the process of clicking the checkboxes, and then we plot the results by calling the wrapGraph() function again.
+                                    </p> 
+<div class="code-block">
+<pre><code class="language-javascript">//Choose which variables you want as multi-classifiers
+var multi = ["year", "region"];
+//Single classifiers are all the others.
+var single = categories.filter(i => multi.includes(i) == false) 
+
+//Plot the results
+simulateSelection(multi, single)
+wrapGraph(checkedValues, categories, filteredData)
+</code></pre>
+<p>
+    In the case of this dataset, there are no mean values for any region with size small and year 18. If you select these variables in the checkboxes, you should be able to see the message displayed on the screen.
+</p>
+                            </section>
+
+
+                            <section id="complete-code-section" class="doc-section">
+                                <h2 class="section-title">Complete code</h2>
+                                <div class="section-block">
+
+                                <p>Click <a href="example.html">here</a> for a working example of the complete code.</p>
+<div class="code-block">
+<pre><code class="language-markup">&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+    &lt;meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesGeneral.css"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesMap.css"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesGraph.css"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesSelectors.css"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesBoxSelector.css"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesMobile.css"&gt;
+    &lt;link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/&gt;
+    &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;/body&gt;
+
+  &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"&gt;&lt;/script&gt;
+  &lt;script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""&gt;&lt;/script&gt;
+  &lt;script src="../src/generateHTMLstructure.js"&gt;&lt;/script&gt;
+  &lt;script src="../tt/dataProcess.js"&gt;&lt;/script&gt;
+  &lt;script src="./ficData.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/dataProcessUtils.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/graphFunctions.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/leafLetFunctions.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/mapFunctions.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/dropdownSelection.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/checkBoxSelectors.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+
+    initiateDashboard()
+    
+    var [categories, options] = extractCategoriesAndOptions(data, dependentVariableName = 'value')
+    generateCheckBoxes(categories, options, 'boxTop', data)
+    
+    document.getElementById("buttonDimensionSelector").onclick = function(){
+        showBoxSelector("boxTop")
+        wrapGraph(checkedValues, categories, filteredData)
+        displayNonGraphs(filteredData)
+    }
+    
+    var checkedValues = checkedValuesObjectGenerator(categories)
+    
+    checkBoxVerificationSystem(categories, checkedValues, data, filterDataByCheckBox, exception = "statistic")
+    
+    var multi = ["year", "region"];//Selecting two multiclass classifiers
+    var single = categories.filter(i =&gt; multi.includes(i) == false)//Establishing the single classifiers
+
+    //Running click simulation
+    simulateSelection(multi, single)
+    wrapGraph(checkedValues, categories, filteredData)
+&lt;/script&gt;
+&lt;/html&gt;
+
+    
+</code></pre>
+
+                                </div>
+                            </section>
+
+                    </div><!--//doc-content-->
+                    <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
+                        <div id="doc-nav" class="doc-nav">
+	                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
+		                            <li class="nav-item">
+	                                    <a class="nav-link scrollto" href="#installation-section">Installation</a>
+		                            </li>
+                                <li class="nav-item">
+	                                    <a class="nav-link scrollto" href="#code-section">Start html framework</a>
+                                </li>
+                                    
+                                    <li class="nav-item">
+	                                     <a class="nav-link scrollto" href="#data-handling-section">Data handling</a>
+                                    </li>
+                                    <li class="nav-item">
+	                                      <a class="nav-link scrollto" href="#graphing-section">Graphing</a>
+                                    </li>
+                                    <li class="nav-item">
+	                                      <a class="nav-link scrollto" href="#missing-handling-section">Handle missing data</a>
+                                    </li>
+                                    <li class="nav-item">
+	                                      <a class="nav-link scrollto" href="#automatic-selection">Automatic selection</a>
+                                    </li>
+                                    <li class="nav-item">
+	                                      <a class="nav-link scrollto" href="#complete-code-section">Complete code</a>
+                                    </li>
+	                            </nav><!--//doc-menu-->
+	                        
+                        </div>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->              
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+        
+    </div><!--//page-wrapper-->
+    
+    <footer id="footer" class="footer text-center">
+        <div class="container">
+            <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <!-- <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart"></i> by <a href="https://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a> for developers</small> -->
+            
+        </div><!--//container-->
+    </footer><!--//footer-->
+    
+     
+    <!-- Main Javascript -->          
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/plugins/prism/prism.js"></script>      
+    <script src="assets/plugins/stickyfill/dist/stickyfill.min.js"></script>      
+    <script src="assets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+    <script src="assets/plugins/simplelightbox/simple-lightbox.min.js"></script>                                                          
+    <script src="assets/js/main.js"></script>
+    
+</body>
+</html> 
+

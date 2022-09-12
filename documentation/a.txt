@@ -1,0 +1,53 @@
+&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+    &lt;meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesGeneral.css"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesMap.css"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesGraph.css"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesSelectors.css"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesBoxSelector.css"&gt;
+    &lt;link rel="stylesheet" href="../styles/stylesMobile.css"&gt;
+    &lt;link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/&gt;
+    &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;/body&gt;
+
+  &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"&gt;&lt;/script&gt;
+  &lt;script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""&gt;&lt;/script&gt;
+  &lt;script src="../src/generateHTMLstructure.js"&gt;&lt;/script&gt;
+  &lt;script src="../tt/dataProcess.js"&gt;&lt;/script&gt;
+  &lt;script src="./ficData.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/dataProcessUtils.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/graphFunctions.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/leafLetFunctions.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/mapFunctions.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/dropdownSelection.js"&gt;&lt;/script&gt;
+  &lt;script src="../src/checkBoxSelectors.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+
+    initiateDashboard()
+    
+    var [categories, options] = extractCategoriesAndOptions(data, dependentVariableName = 'value')
+    generateCheckBoxes(categories, options, 'boxTop', data)
+    
+    document.getElementById("buttonDimensionSelector").onclick = function(){
+        showBoxSelector("boxTop")
+        wrapGraph(checkedValues, categories, filteredData)
+        displayNonGraphs(filteredData)
+    }
+    
+    var checkedValues = checkedValuesObjectGenerator(categories)
+    
+    checkBoxVerificationSystem(categories, checkedValues, data, filterDataByCheckBox, exception = "statistic")
+    
+    var multi = ["year", "region"];//Selecting two multiclass classifiers
+    var single = categories.filter(i =&gt; multi.includes(i) == false)//Establishing the single classifiers
+
+    //Running click simulation
+    simulateSelection(multi, single)
+    wrapGraph(checkedValues, categories, filteredData)
+&lt;/script&gt;
+&lt;/html&gt;

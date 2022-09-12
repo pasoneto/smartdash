@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap project documentation theme for developers</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- FontAwesome JS -->
+    <script defer src="assets/fontawesome/js/all.js"></script>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">  
+    <link rel="stylesheet" href="assets/plugins/simplelightbox/simple-lightbox.min.css">
+      
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+    
+</head> 
+
+<body class="body-green">
+    <div class="page-wrapper">
+        <!-- ******Header****** -->
+        <header id="header" class="header">
+            <div class="container">
+                <div class="branding">
+                    <h1 class="logo">
+                        <a href="index.html">
+                            <span aria-hidden="true" class="icon_documents_alt icon"></span>
+                            <span class="text-highlight">ED</span><span class="text-bold">Documentation</span>
+                        </a>
+                    </h1>
+                    
+                </div><!--//branding-->
+                
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Components</li>
+                </ol>
+                
+                <div class="top-search-box">
+	                 <form class="form-inline search-form justify-content-center" action="" method="get">
+	            
+			            <input type="text" placeholder="Search..." name="search" class="form-control search-input">
+			            
+			            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+			            
+			        </form>
+                </div>
+                
+            </div><!--//container-->
+        </header><!--//header-->
+        <div class="doc-wrapper">
+            <div class="container">
+                <div id="doc-header" class="doc-header text-center">
+
+                            
+                    <h1 class="doc-title"><span aria-hidden="true" class="icon_documents_alt icon"></span>Documentation</h1>
+                    <div class="meta"><i class="far fa-clock"></i> Last updated: July 14th, 2022</div>
+                </div><!--//doc-header-->
+                <div class="doc-body row">
+                    <div class="doc-content col-md-9 col-12 order-1">
+                        <div class="content-inner">
+                            <p><b>Important notes about the terminology of this documentation:</b></p>
+                            <p>The word <b>classifiers</b> refer to the name of categorical variables associated with the dataset. For instance, <b>yeah</b>, <b>color</b>, etc... The word <b>options</b> are the levels associated with each classifier. For instance <b>red</b>, <b>blue</b> and <b>green</b> are options of color.</p>
+                            <p>The word <b>dependentVariable</b> refers to the name of the field which holds the value to be plotted. Since this package assumes that you have data in a long rather than wide format (see data), there can only be one field per JSON cell which holds the value of interest (e.g., mean or median), and <b>dependentVariable</b> is the name which identifies this JSON field.</p>
+                            <p>Another distinction that we make regards single versus multi classifiers. Multi-classifiers are those which the user chose to select more than one option. (e.g., <b>year</b>: <b>2010, 2011</b>, <b>color: </b><b>Red, Blue</b>). Single-classifiers are those which the user chose only one level (e.g., <b>statistic</b>: <b>mean</b> or <b>median</b>).</p>
+                            <section id="HTMLStructuring" class="doc-section">
+                                <h2 class="section-title">HTML structuring</h2>
+                                <div class="section-block">
+                                    <p>Establish pre-defined divisions of the HTML page. Functions located at /src/generateHTMLstructure.js </p>
+                                </div>
+                                <div id="initiateDashboard"  class="section-block">
+                                    <h3 class="block-title">initiateDashboard()</h3>
+                                    <p>Generates structure of the HTML page.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>renderMap</td>
+                                                    <td>[Boolean] Whether or not a canvas will be created for displaying interactive maps.</td>
+                                                    <td>false</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>directory</td>
+                                                    <td>[String] Path to the library's style sheets</td>
+                                                    <td>null</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                    <!-- function renderGraphBoxes(nMulticlassClassifiers){ -->
+                                <div id="renderGraphBoxes"  class="section-block">
+                                    <h3 class="block-title">renderGraphBoxes()</h3>
+                                    <p>Output: divs which will hold the main graphs.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>nMultiClassifiers</td>
+                                                    <td>[Int] Number of multiclassifiers chosen by the user. value can be taken from the length of global variable multiClassifiers, which is the output of function pickMultiClassClassifiers() (see Category selectors section).</td>
+                                                    <td>none</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                                <div id="generatePieChartsContainers"  class="section-block">
+                                    <h3 class="block-title">generatePieChartsContainers()</h3>
+                                    <p>Output: divs which will hold the pie-charts.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>nPieCharts</td>
+                                                    <td>[Int] Number of pie-chart divs to be rendered on the HTML page.</td>
+                                                    <td>none</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                            <section id="categoricSelectors" class="doc-section">
+                                <h2 class="section-title">Category selectors</h2>
+                                <div class="section-block">
+                                    <p>Family of functions that allow user to select different classifiers within the data set.</p>
+                                </div>
+                                <div id="extractCategoriesAndOptions"  class="section-block">
+                                    <h3 class="block-title">extractCategoriesAndOptions()</h3>
+                                    <p>Output: list of two lists, where the first is a list of classifiers, and the second is a list of options extracted from the data. This output can be used as input parameter of function generateCheckBoxes (see below).</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>data</td>
+                                                    <td>[Object] JSON object. </td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>dependentVariableName</td>
+                                                    <td>[string] Key from JSON which names the field holding the value to be plotted.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                                <div id="generateCheckBoxes"  class="section-block">
+                                    <h3 class="block-title">generateCheckBoxes()</h3>
+                                    <p>Output: div with checkboxes for all classifiers and options. This allows users to select different options within each classifier. Subsequently, these choices will be used to filter the data (see function filterDataByCheckBox) and generate the graphs.</p>
+                                    <p>Depends on initiateDashboard().</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- options, whereAppend, data, dependentVariable, labels = null -->
+
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>classifiers</td>
+                                                    <td>[List] List of strings holding classifier names.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>options</td>
+                                                    <td>[List] List of lists of strings holding the options for each category. Order of the list needs to match the order of the category list.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>data</td>
+                                                    <td>[Object] JSON holding data to be plotted.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">4</th>
+                                                    <td>dependentVariable</td>
+                                                    <td>[String] Object key indicating the JSON field which holds the values to be plotted.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">5</th>
+                                                    <td>labels</td>
+                                                    <td>[Object] Object holding the labels to translate classifier and options codes into user-friendly names. For instance, translates the classifier <b>rgn</b> into <b>Region</b>.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">6</th>
+                                                    <td>whereAppend</td>
+                                                    <td>[String] ID of the div which will hold the checkbox values.</td>
+                                                    <td>'boxTop'</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                                <div id="checkedValuesObjectGenerator"  class="section-block">
+                                    <h3 class="block-title">checkedValuesObjectGenerator()</h3>
+                                    <p>Output: object with keys matching the structure of classifiers. Each key will indicate what options have been chosen by the user within each classifier. When initiated, the object will have only classifier keys, but empty values. The values of each keys will be updated every time a user makes a checkbox selection.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>classifiers</td>
+                                                    <td>[List] List of classifiers.</td>
+                                                    <td>none</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                                <div id="checkBoxVerificationSystem"  class="section-block">
+                                    <h3 class="block-title">checkBoxVerificationSystem()</h3>
+                                    <p>Output: system which verifies what values have been checked by the user. This updates the global variable generated with checkedValuesObjectGenerator(), and filters the dataset based on the user selection of checkboxes.</p>
+                                    <p>Function depends on the existance of a global value called checkedValues, which needs to be generated with the function checkedValuesObjectGenerator(). </p>
+                                    <!--exception = "dependentVariable" //Value is written inside the global variable checkedValues -->
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>classifiers</td>
+                                                    <td>[List] List of classifiers.</td>
+                                                    <td>none</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>checkedValues</td>
+                                                    <td>[Object] Global object generated with the function checkedValuesObjectGenerator().</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>data</td>
+                                                    <td>[Object] JSON holding data to be plotted.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">4</th>
+                                                    <td>filterFunction</td>
+                                                    <td>[Function] Function which will read the selected check boxes and filter the data accordingly. We have a pre-defined version of this function (see filterDataByCheckBox).</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">5</th>
+                                                    <td>exception</td>
+                                                    <td>[String] Object key indicating one particular classifier that can only be selected as a single-classifier.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                                <div id="pickMultiClassClassifiers"  class="section-block">
+                                    <h3 class="block-title">pickMultiClassClassifiers()</h3>
+                                    <p>Output: verifies which classifiers are multi-classifiers (i.e., receive more than one options checked). Output is stored in a variable named <b>multiClassClassifiers</b></p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>checkedValues</td>
+                                                    <td>[Object] Global object generated with the function checkedValuesObjectGenerator().</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>classifiers</td>
+                                                    <td>[List] List of classifiers.</td>
+                                                    <td>none</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                                <!-- async function simulateSelection(multi, single){ -->
+                                <div id="singleCheck"  class="section-block">
+                                    <h3 class="block-title">singleCheck()</h3>
+                                    <p>Output: Automatically select one check box from a given classifier name. Checked option will be a random element within the option list for that classifier.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>classifierName</td>
+                                                    <td>[String] String indicating tha name of one classifier to which a random option will be checked.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                                <div id="multiCheck"  class="section-block">
+                                    <h3 class="block-title">multiCheck()</h3>
+                                    <p>Output: Automatically select all check boxes from a given classifier.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>classifierName</td>
+                                                    <td>[String] String indicating tha name of one classifier to which all options will be checked.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                                <div id="simulateSelection"  class="section-block">
+                                    <h3 class="block-title">simulateSelection()</h3>
+                                    <p>Output: Automatically select checkboxes. There can be up to two multi-classifiers and any number of single-classifiers. Multi-classifiers will have all options checked, whereas single-classifiers will receive one check in a random option.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>multi</td>
+                                                    <td>[List] List of strings containing the Object keys for the multi-classifiers. Length of the list is <= 2.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>single</td>
+                                                    <td>[List] List of strings containing the Object keys for the single-classifiers.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                                <div id="verifyAllClassifiersChecked"  class="section-block">
+                                    <h3 class="block-title">verifyAllClassifiersChecked()</h3>
+                                    <p>Output: Verifies if user chose at least one options for each classifier. If not, calls singleCheck() function with the name of that classifier as input.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>checkedValues</td>
+                                                    <td>[Object] Global object generated with the function checkedValuesObjectGenerator().</td>
+                                                    <td>null</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                            <section id="dataProcessing" class="doc-section">
+                                <h2 class="section-title">Data processing</h2>
+                                <div class="section-block">
+                                    <p>Functions to facilitate the process of data for graphing.</p>
+                                </div>
+                                <div id="filterDataByCheckBox"  class="section-block">
+                                    <h3 class="block-title">filterDataByCheckBox()</h3>
+                                    <p>Output: global variable named filteredData, which holds the filtered dataset based on selected check box option within each classifier.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>classifiers</td>
+                                                    <td>[List] List of classifiers.</td>
+                                                    <td>none</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>data</td>
+                                                    <td>[Object] JSON holding data to be plotted.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>checkedValues</td>
+                                                    <td>[Object] Global object generated with the function checkedValuesObjectGenerator().</td>
+                                                    <td>null</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                                <div id="separateDataInGroups"  class="section-block">
+                                    <h3 class="block-title">separateDataInGroups()</h3>
+                                    <p>Output: x-Axis and y-Axis to be used in graphing functions. The y-Axis will be separated beased on the options chosen for the multi-classifier.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>filteredData</td>
+                                                    <td>[Object] Object stored within the global variable filteredData, which is generated as the output of checkBoxVerificationSystem(). Filtering is done based on user selection of check boxes.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>groupSelected</td>
+                                                    <td>[String] Classifier which has been selected as a multi-clssifier. This variable can be taken from the output of the function pickMultiClassClassifiers().</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>checkedValues</td>
+                                                    <td>[Object] Global object generated with the function checkedValuesObjectGenerator().</td>
+                                                    <td>null</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                            <section id="graphing" class="doc-section">
+                                <h2 class="section-title">Graphing</h2>
+                                <div class="section-block">
+                                    <p>Enable the rendering of different types of graphs. The base dependency of these functions is the ChartJS library.</p>
+                                </div>
+                                <div id="colorGenerator"  class="section-block">
+                                    <h3 class="block-title">colorGenerator()</h3>
+                                    <p>Output: list of colors. One for each data group (defined by multi-classifiers).</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>yAxis</td>
+                                                    <td>[List] List of lists containing values to be plotted. Output of function separateDataInGroups().</td>
+                                                    <td>none</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                                <div id="graphCustom"  class="section-block">
+                                    <h3 class="block-title">graphCustom()</h3>
+                                    <p>Output: chart generated by library ChartJS and displayed on the HTML document. Depends on the functions initiateDashboard() and renderGraphBoxes(), which will hold the divs where charts will be displayed.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>xAxis</td>
+                                                    <td>[List] List of strings or numbers. Output of function separateDataInGroups()</td>
+                                                    <td>none</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>yAxis</td>
+                                                    <td>[List] List of lists containing values to be plotted. Output of function separateDataInGroups().</td>
+                                                    <td>none</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>labels</td>
+                                                    <td>[List] List of options chosen by user for a given multi-classifier. Values can be extracted from the output of function separateDataInGroups().</td>
+                                                    <td>none</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">4</th>
+                                                    <td>id</td>
+                                                    <td>[String] ID of canvas tag where chart will be rendered. If initiateDashboard() and renderGraphBoxes() are used, value must be "myChart" or "myChart1"</td>
+                                                    <td>none</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">5</th>
+                                                    <td>title</td>
+                                                    <td>[String] Type of graph to be rendered. Either 'line' or 'bar'</td>
+                                                    <td>none</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">6</th>
+                                                    <td>showLegend</td>
+                                                    <td>[Boolean] true or false indicating wether legend of the graph should be displayed.</td>
+                                                    <td>true</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">7</th>
+                                                    <td>fill</td>
+                                                    <td>[Boolean] true or false indicating wether are below line should be filled with color.</td>
+                                                    <td>false</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">8</th>
+                                                    <td>suggestedMin</td>
+                                                    <td>[Int] Number indicating the suggested minimum value of the y-axis.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">9</th>
+                                                    <td>position</td>
+                                                    <td>[String] Position of legend. Either 'bottom', 'top', 'left' or 'right'.</td>
+                                                    <td>bottom</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                                <div id="graphCustomPie"  class="section-block">
+                                    <h3 class="block-title">graphCustomPie()</h3>
+                                    <p>Output: chart generated by library ChartJS and displayed on the HTML document. Depends on the functions initiateDashboard() and renderGraphBoxes(), which will hold the divs where charts will be displayed.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>xAxis</td>
+                                                    <td>[List] List of strings or numbers. Output of function separateDataInGroups()</td>
+                                                    <td>none</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>yAxis</td>
+                                                    <td>[List] List of lists containing values to be plotted. Output of function separateDataInGroups().</td>
+                                                    <td>none</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>labels</td>
+                                                    <td>[List] List of options chosen by user for a given multi-classifier. Values can be extracted from the output of function separateDataInGroups().</td>
+                                                    <td>none</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">4</th>
+                                                    <td>id</td>
+                                                    <td>[String] ID of canvas tag where chart will be rendered. If initiateDashboard() and renderGraphBoxes() are used, value must be "myChart2", "myChart3", or "myChart4".</td>
+                                                    <td>none</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">5</th>
+                                                    <td>title</td>
+                                                    <td>[String] Type of graph to be rendered. Either 'line' or 'bar'</td>
+                                                    <td>none</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">6</th>
+                                                    <td>showLegend</td>
+                                                    <td>[Boolean] true or false indicating wether legend of the graph should be displayed.</td>
+                                                    <td>true</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">7</th>
+                                                    <td>fill</td>
+                                                    <td>[Boolean] true or false indicating wether are below line should be filled with color.</td>
+                                                    <td>false</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">8</th>
+                                                    <td>suggestedMin</td>
+                                                    <td>[Int] Number indicating the suggested minimum value of the y-axis.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">9</th>
+                                                    <td>position</td>
+                                                    <td>[String] Position of legend. Either 'bottom', 'top', 'left' or 'right'.</td>
+                                                    <td>bottom</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                                <div id="displayNonGraphs"  class="section-block">
+                                    <h3 class="block-title">displayNonGraphs()</h3>
+                                    <p>Output: styled div in the middle of the HTML document. This div will appear every time the filtered data finds no data, or is entirelly composed of null values.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>filteredData</td>
+                                                    <td>[Object] Object stored within the global variable filteredData, which is generated as the output of checkBoxVerificationSystem(). Filtering is done based on user selection of check boxes.</td>
+                                                    <td>none</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                                <div id="displaySelectedSingleVariables"  class="section-block">
+                                    <h3 class="block-title">displaySelectedSingleVariables()</h3>
+                                    <p>Output: Display selected single-classifiers. Result will be appended to the HTML page, and user will be able to see which single-variables are being used for filtering the data. Selected multi-classifiers are already visible in the x-axis and in labels of the graphs.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Parameters</th>
+                                                    <th>Description</th>
+                                                    <th>Default</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>checkedValues</td>
+                                                    <td>[Object] Global object generated with the function checkedValuesObjectGenerator().</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>exception</td>
+                                                    <td>[String] Object key which does not have a label translation. Only usefull if label is passed as an argument.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>labels</td>
+                                                    <td>[Object] Object holding the labels to translate classifier and options codes into user-friendly names. For instance, translates the classifier <b>rgn</b> into <b>Region</b>.</td>
+                                                    <td>null</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                        </div><!--//content-inner-->
+                    </div><!--//doc-content-->
+                    <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
+                        <div id="doc-nav" class="doc-nav">
+                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
+                                <li class="nav-item">
+                                    <a class="nav-link scrollto" href="#HTMLStructuring">HTML structuring</a>
+                                </li>
+                                <nav class="nav doc-sub-menu nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link scrollto" href="#initiateDashboard">initiateDashboard</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link scrollto" href="#renderGraphBoxes">renderGraphBoxes()</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link scrollto" href="#generatePieChartsContainers">generatePieChartsContainers()</a>
+                                    </li>
+                                </nav><!--//nav-->
+
+                                <nav id="doc-menu" class="nav doc-menu flex-column sticky">
+                                    <li class="nav-item">
+                                        <a class="nav-link scrollto" href="#categoricSelectors">Category selectors</a>
+                                    </li>
+                                    <nav class="nav doc-sub-menu nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link scrollto" href="#extractCategoriesAndOptions">extractCategoriesAndOptions()</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link scrollto" href="#generateCheckBoxes">generateCheckBoxes()</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link scrollto" href="#checkedValuesObjectGenerator">checkedValuesObjectGenerator()</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link scrollto" href="#checkBoxVerificationSystem">checkBoxVerificationSystem()</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link scrollto" href="#pickMultiClassClassifiers">pickMultiClassClassifiers()</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link scrollto" href="#singleCheck">singleCheck()</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link scrollto" href="#multiCheck">multiCheck()</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link scrollto" href="#simulateSelection">simulateSelection()</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link scrollto" href="#verifyAllClassifiersChecked">verifyAllClassifiersChecked()</a>
+                                        </li>
+                                    </nav><!--//nav-->
+                                </nav><!--//doc-menu-->
+
+                                <nav id="doc-menu" class="nav doc-menu flex-column sticky">
+                                    <li class="nav-item">
+                                        <a class="nav-link scrollto" href="#dataProcessing">Data processing</a>
+                                    </li>
+                                    <nav class="nav doc-sub-menu nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link scrollto" href="#filterDataByCheckBox">filterDataByCheckBox()</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link scrollto" href="#separateDataInGroups">separateDataInGroups()</a>
+                                        </li>
+                                    </nav><!--//nav-->
+                                </nav><!--//doc-menu-->
+
+                                <nav id="doc-menu" class="nav doc-menu flex-column sticky">
+                                    <li class="nav-item">
+                                        <a class="nav-link scrollto" href="#graphing">Graphing</a>
+                                    </li>
+                                    <nav class="nav doc-sub-menu nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link scrollto" href="#colorGenerator">colorGenerator()</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link scrollto" href="#graphCustom">graphCustom()</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link scrollto" href="#graphCustomPie">graphCustomPie()</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link scrollto" href="#displayNonGraphs">displayNonGraphs()</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link scrollto" href="#displaySelectedSingleVariables">displaySelectedSingleVariables()</a>
+                                        </li>
+                                    </nav><!--//nav-->
+                                </nav><!--//doc-menu-->
+                            </nav><!--//doc-menu-->
+                        </div>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->              
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+        
+    </div><!--//page-wrapper-->
+    
+    <footer id="footer" class="footer text-center">
+        <div class="container">
+            <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart"></i> by <a href="https://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a> for developers</small>
+            
+        </div><!--//container-->
+    </footer><!--//footer-->
+    
+     
+    <!-- Main Javascript -->          
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/plugins/prism/prism.js"></script>      
+    <script src="assets/plugins/stickyfill/dist/stickyfill.min.js"></script>      
+    <script src="assets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+    <script src="assets/plugins/simplelightbox/simple-lightbox.min.js"></script>                                                          
+    <script src="assets/js/main.js"></script>
+    
+</body>
+</html> 

@@ -1,0 +1,39 @@
+/*Scroll div on top of everything*/
+#boxTop {
+  background-color: lightgray;
+  display: none;
+  z-index: 1000;
+  height: 60%;
+  width: 60%;
+  position: absolute;
+  top:20%;
+  bottom: 0;
+  left: 20%;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.30) 3px 2.2px 2.9px;
+  overflow:auto;
+  resize: both;
+  align-items: center;
+}
+/*Scroll div on top of everything*/
+
+/*Button submit dimensions selected*/
+#buttonDimensionSelector{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 15px;
+  left: 38%;
+  box-shadow: rgba(0, 0, 0, 0.30) 1px 1px 1px;
+}
+#buttonDimensionSelector2{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 15px;
+  left: 38%;
+  box-shadow: rgba(0, 0, 0, 0.30) 1px 1px 1px;
+}
+/*Button submit dimensions selected*/
+
+
+
+

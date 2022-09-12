@@ -1,0 +1,61 @@
+/*Scroll div on top of everything*/
+#boxTop {
+  background-color: lightgray;
+  display: none;
+  z-index: 1000;
+  height: 60%;
+  width: 60%;
+  position: absolute;
+  top:20%;
+  bottom: 0;
+  left: 20%;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.30) 3px 2.2px 2.9px;
+  overflow:auto;
+  resize: both;
+  border: 2px solid black;
+}
+/*Scroll div on top of everything*/
+
+/*Button submit dimensions selected*/
+#buttonDimensionSelector{
+  margin: 0;
+  position: absolute;
+  left: 50%
+}
+/*Button submit dimensions selected*/
+
+/*Container wraping list of classifiers*/
+#checkBoxListContainer{
+  background-color: snow;
+  margin: auto;
+  margin-top: 10px;
+  width: 95%;
+}
+/*Container wraping list of classifiers*/
+
+/*Header of category selector box*/
+#categorySelectorHeader {
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  background-color: #2196F3;
+  color: #fff;
+}
+/*Header of category selector box*/
+
+
+/*Checkbox list*/
+ul{
+  -moz-column-count: 2;
+  -moz-column-gap: 20px;
+  -webkit-column-count: 2;
+  -webkit-column-gap: 20px;
+  column-count: 2;
+  column-gap: 20px;
+  list-style-type: none;
+}
+/*Checkbox list*/
+
+
+

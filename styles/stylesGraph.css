@@ -1,0 +1,118 @@
+/* Box holding all graphs*/
+#graphsContainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 80%
+}
+.graphBox {
+  background: #EDF6FC;
+  height: 35vh;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  min-width: 0;
+}
+/* Row of two main graphs on top*/
+#mainGraphs{
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  min-width: 0;
+}
+/* Row box around all Pie charts */
+#pieChartsContainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 10px; /*Spacing between columns of pie charts*/
+}
+/* Individual pie charts */
+.graphBox3 {
+  background: #EDF6FC;
+  height: 35vh;
+  min-width: 0;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+/* End of pie charts */
+
+/* Container holding graph for single graph selection */
+.graphSingleBox {
+  background: #EDF6FC;
+  height: 70vh;
+  width: 76vw;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.graphBox.mainGraph {
+  width: 98%;
+}
+
+.graphsBox { 
+  width: 80%;
+  left: 50%;
+}
+
+#boxTopMap {
+  background-color: snow;
+  display: none;
+  padding: 10px;
+  z-index: 1000;
+  width: 60%;
+  height: 35%;
+  position: absolute;
+  top:20%;
+  bottom: 0;
+  left: 20%;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.30) -3px -2.2px 2.9px;
+  border: 1px solid black;
+}
+#noGraphContainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+#noGraph{
+  margin: 0px;
+  vertical-align: middle;
+  position: relative;
+  text-align: center;
+  background: #EDF6FC;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 35px;
+  box-shadow: rgba(0, 0, 0, 0.30) 3px 2.2px 2.9px;
+  height: 30vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+#noGraph:hover {
+  background-color: #0088A9;
+}
+#textNoGraph{
+  font-size: 25px;
+}
+#textNoGraph2{
+  font-size: 15px;
+}
+#noGraph:hover{
+  color: white;
+}
+#noGraph:hover{
+  color: white;
+}

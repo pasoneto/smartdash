@@ -1,0 +1,55 @@
+/*Dimension selectors*/
+.dimensionSelector{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  height: 12%;
+  width: 80vw;
+  margin: 1px;
+  margin-bottom: 5px;
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  background-color: #DBEDF9;
+  gap: 10px;
+}
+/*Statistics selector box*/
+#statisticsSelector{
+ height: 12%;
+ width: 20%;
+}
+/*Single dimensions selector box*/
+#selectedVariables{
+ width: 100%;
+ text-align: center;
+}
+#dropdown-btn {
+  float: left
+}
+#shareDashboardButton{
+  margin-left: auto;
+}
+
+/* Dropdown button for map selection*/
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+#dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1001;
+}
+#dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+#dropdown-content a:hover {background-color: #ddd;}
+.dropdown:hover #dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
