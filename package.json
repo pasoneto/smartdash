@@ -2,14 +2,28 @@
   "name": "smartdash",
   "version": "1.0.0",
   "description": "Tools for generating dynamic dashboard systems.",
-  "main": "./src/app.js",
+  "main": "\"./src/app.js\"",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Pedro Neto",
-  "license": "ISC",
-  "dependencies": {
-    "chart.js": "^3.9.1"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pasoneto/smartdash.git"
   },
-  "devDependencies": {}
+  "keywords": [
+    "dashboard",
+    "front-end",
+    "data",
+    "visualization",
+    "visualization",
+    "graphs",
+    "bi",
+    "powerbi"
+  ],
+  "author": "Pedro Neto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pasoneto/smartdash/issues"
+  },
+  "homepage": "https://github.com/pasoneto/smartdash#readme"
 }

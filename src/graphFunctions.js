@@ -1,5 +1,3 @@
-const Chart = require('chart.js');
-
 //Choose color to fill in graph
 function _randomNoRepeats(array) {
   var copy = array.slice(0);
