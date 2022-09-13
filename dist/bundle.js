@@ -283,9 +283,9 @@ function checkBoxVerificationSystem(classifiers, checkedValues, data, filterFunc
     for(k in classifiers){
       if(classifiers[k] !== exception){
         if(textTranslations !== null){
-          document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (' + textTranslations['checkboxes']['multipleSelector'][language] + ') </font><p><input type="checkbox" id="selectAll" onclick=multiCheck("' + classifiers[k] + '")></input><div id="selectAllText">' + textTranslations['checkboxes']['all'][language] + ' <i class="fa fa-arrow-right" aria-hidden="true"></i></div></p>' //Add text saying that this category is multiple selector
+          document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (' + textTranslations['checkboxes']['multipleSelector'][language] + ') </font><p><input type="checkbox" id="selectAll" onclick=Smartdasher.multiCheck("' + classifiers[k] + '")></input><div id="selectAllText">' + textTranslations['checkboxes']['all'][language] + ' <i class="fa fa-arrow-right" aria-hidden="true"></i></div></p>' //Add text saying that this category is multiple selector
         } else {
-          document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (Multiple selector) </font><p><input type="checkbox" id="selectAll" onclick=multiCheck("' + classifiers[k] + '")></input><div id="selectAllText">All <i class="fa fa-arrow-right" aria-hidden="true"></i></div></p>' //Add text saying that this category is multiple selector
+          document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (Multiple selector) </font><p><input type="checkbox" id="selectAll" onclick=Smartdasher.multiCheck("' + classifiers[k] + '")></input><div id="selectAllText">All <i class="fa fa-arrow-right" aria-hidden="true"></i></div></p>' //Add text saying that this category is multiple selector
         }
       }
     }
