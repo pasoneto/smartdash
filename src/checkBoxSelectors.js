@@ -4,10 +4,14 @@ function extractCategoriesAndOptions(data, dependentVariableName){
   var classifiers = Object.keys(data[0]) //Extract classifier names (e.g., year, size, etc...)
   var classifiers = classifiers.filter(i => i !== dependentVariableName) //Remove value, which is what we want to plot
 
+  function _onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+  }
+
   var options = []
   for(k in classifiers){
     var a = data.map(i=>i[classifiers[k]])
-    var a = a.filter(onlyUnique)
+    var a = a.filter(_onlyUnique)
     options.push(a)
   }
   var options = options.filter(i=> i[0] !== undefined)
@@ -32,8 +36,14 @@ function generateCheckBoxes(classifiers, options, data, dependentVariable, label
     var buttonText = 'Render graphs</button>';
   }
 
+  function buttonDimensionFunction(){
+    showBoxSelector("boxTop") //Hide box with checkboxes
+    showBoxSelector("dimmer") //Hide box with checkboxes
+  }
+
   paragraphHeader.innerHTML = textHeader
   btnDimensionSelector.innerHTML = buttonText
+  btnDimensionSelector.onclick = buttonDimensionFunction
   header.appendChild(paragraphHeader)
   boxTop.appendChild(header)
   boxTop.appendChild(btnDimensionSelector)
@@ -109,7 +119,7 @@ function generateCheckBoxes(classifiers, options, data, dependentVariable, label
 
       linkElement.appendChild(inputElement) 
       linkElement.appendChild(textLabelElement)
-      ulElement.appendChild(linkElement)  
+      ulElement.appendChild(linkElement)
     }
 
     checkBoxListContainer.appendChild(ulElement)
@@ -128,6 +138,7 @@ function generateCheckBoxes(classifiers, options, data, dependentVariable, label
   }
 
   var buttonText = document.createTextNode(buttonText)
+  buttonDimensionSelector.onclick = buttonDimensionFunction
   buttonDimensionSelector.appendChild(buttonText)
   boxTop.appendChild(buttonDimensionSelector)
 

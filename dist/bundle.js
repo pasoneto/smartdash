@@ -16,10 +16,14 @@ function extractCategoriesAndOptions(data, dependentVariableName){
   var classifiers = Object.keys(data[0]) //Extract classifier names (e.g., year, size, etc...)
   var classifiers = classifiers.filter(i => i !== dependentVariableName) //Remove value, which is what we want to plot
 
+  function _onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+  }
+
   var options = []
   for(k in classifiers){
     var a = data.map(i=>i[classifiers[k]])
-    var a = a.filter(onlyUnique)
+    var a = a.filter(_onlyUnique)
     options.push(a)
   }
   var options = options.filter(i=> i[0] !== undefined)
@@ -44,8 +48,14 @@ function generateCheckBoxes(classifiers, options, data, dependentVariable, label
     var buttonText = 'Render graphs</button>';
   }
 
+  function buttonDimensionFunction(){
+    showBoxSelector("boxTop") //Hide box with checkboxes
+    showBoxSelector("dimmer") //Hide box with checkboxes
+  }
+
   paragraphHeader.innerHTML = textHeader
   btnDimensionSelector.innerHTML = buttonText
+  btnDimensionSelector.onclick = buttonDimensionFunction
   header.appendChild(paragraphHeader)
   boxTop.appendChild(header)
   boxTop.appendChild(btnDimensionSelector)
@@ -121,7 +131,7 @@ function generateCheckBoxes(classifiers, options, data, dependentVariable, label
 
       linkElement.appendChild(inputElement) 
       linkElement.appendChild(textLabelElement)
-      ulElement.appendChild(linkElement)  
+      ulElement.appendChild(linkElement)
     }
 
     checkBoxListContainer.appendChild(ulElement)
@@ -140,6 +150,7 @@ function generateCheckBoxes(classifiers, options, data, dependentVariable, label
   }
 
   var buttonText = document.createTextNode(buttonText)
+  buttonDimensionSelector.onclick = buttonDimensionFunction
   buttonDimensionSelector.appendChild(buttonText)
   boxTop.appendChild(buttonDimensionSelector)
 
@@ -283,9 +294,9 @@ function checkBoxVerificationSystem(classifiers, checkedValues, data, filterFunc
     for(k in classifiers){
       if(classifiers[k] !== exception){
         if(textTranslations !== null){
-          document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (' + textTranslations['checkboxes']['multipleSelector'][language] + ') </font><p><input type="checkbox" id="selectAll" onclick=Smartdasher.multiCheck("' + classifiers[k] + '")></input><div id="selectAllText">' + textTranslations['checkboxes']['all'][language] + ' <i class="fa fa-arrow-right" aria-hidden="true"></i></div></p>' //Add text saying that this category is multiple selector
+          document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (' + textTranslations['checkboxes']['multipleSelector'][language] + ') </font><p><input type="checkbox" id="selectAll" onclick=multiCheck("' + classifiers[k] + '")></input><div id="selectAllText">' + textTranslations['checkboxes']['all'][language] + ' <i class="fa fa-arrow-right" aria-hidden="true"></i></div></p>' //Add text saying that this category is multiple selector
         } else {
-          document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (Multiple selector) </font><p><input type="checkbox" id="selectAll" onclick=Smartdasher.multiCheck("' + classifiers[k] + '")></input><div id="selectAllText">All <i class="fa fa-arrow-right" aria-hidden="true"></i></div></p>' //Add text saying that this category is multiple selector
+          document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (Multiple selector) </font><p><input type="checkbox" id="selectAll" onclick=multiCheck("' + classifiers[k] + '")></input><div id="selectAllText">All <i class="fa fa-arrow-right" aria-hidden="true"></i></div></p>' //Add text saying that this category is multiple selector
         }
       }
     }
@@ -604,7 +615,7 @@ function generatePieChartsContainers(nPieCharts){
 }
 
 //Initiate html of TT
-async function initiateDashboard(title, logo, renderMap = false, flipperButton = true, textTranslations, language){
+async function initiateDashboard(title, logo, renderMap = false, flipperButton = false, textTranslations, language){
 
   var bodyHTML = '<body>'+
       '<div id="dimmer"></div>'+
@@ -639,10 +650,10 @@ async function initiateDashboard(title, logo, renderMap = false, flipperButton =
   }
   if(textTranslations){
     bodyHTML += '<div class="column dimensionSelector" id="dimensionSelector">'+
-      '<button class="displayBoxButton" id="selectDimensionButton" onclick=showBoxSelector("dimmer")><i class="fa fa-filter" aria-hidden="true"></i> ' + textTranslations['selectors']['filter'][language] + '</button>'
+      '<button class="displayBoxButton" id="selectDimensionButton"><i class="fa fa-filter" aria-hidden="true"></i> ' + textTranslations['selectors']['filter'][language] + '</button>'
   } else {
     bodyHTML += '<div class="column dimensionSelector" id="dimensionSelector">'+
-      '<button class="displayBoxButton" id="selectDimensionButton" onclick=showBoxSelector("dimmer")><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>'
+      '<button class="displayBoxButton" id="selectDimensionButton"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>'
   }
 
   if(flipperButton){
@@ -656,13 +667,13 @@ async function initiateDashboard(title, logo, renderMap = false, flipperButton =
   }
   
   if(textTranslations){
-    bodyHTML += '<button id="shareDashboardButton" onclick=shareDashboard("url")>' + textTranslations['selectors']['shareURL'][language] + ' <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
-                '<button id="embed" onclick=shareDashboard("embed")>' + textTranslations['selectors']['embedURL'][language] + ' <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+    bodyHTML += '<button id="shareDashboardButton" onclick=Smartdasher.shareDashboard("url")>' + textTranslations['selectors']['shareURL'][language] + ' <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+                '<button id="embed" onclick=Smartdasher.shareDashboard("embed")>' + textTranslations['selectors']['embedURL'][language] + ' <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
                 '<button id="goBackSelection">' + textTranslations['selectors']['backToSelection'][language] + ' <i class="fa fa-hand-o-left" aria-hidden="true"></i></button>'+
                 '</div>'
   } else {
-    bodyHTML += '<button id="shareDashboardButton" onclick=shareDashboard("url")>Share URL <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
-                '<button onclick=shareDashboard("embed")>Embed URL <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+    bodyHTML += '<button id="shareDashboardButton" onclick=Smartdasher.shareDashboard("url")>Share URL <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+                '<button onclick=Smartdasher.shareDashboard("embed")>Embed URL <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
                 '<button id="goBackSelection">Back to selection <i class="fa fa-hand-o-left" aria-hidden="true"></i></button>'+
                 '</div>'
   }
@@ -684,6 +695,11 @@ async function initiateDashboard(title, logo, renderMap = false, flipperButton =
   }
 
 	documentAppender(document.body, bodyHTML)
+
+  document.getElementById("selectDimensionButton").onclick = function(){
+    Smartdasher.showBoxSelector("dimmer");
+    Smartdasher.showBoxSelector("boxTop");
+  }
 
   if(renderMap === false){
     document.getElementById("graphsContainer").style.width = '100vw'
@@ -883,81 +899,6 @@ function shortenLabel(text, max){
   }
 }
 
-//Wrap up graph functions for convenience
-function wrapGraph(checkedValues, categories, filteredData){
-
-  var multiClassClassifiers;  //Selects categories which will be used as group and xAxis  
-  pickMultiClassClassifiers(checkedValues, categories, multiClassClassifiers)
-
-  var nMulticlassClassifiers = window.multiClassClassifiers.length
-  console.log("Rendered boxes")
-
-  //For when there are 2 multiclass classifier
-  if(nMulticlassClassifiers == 2){
-
-    renderGraphBoxes(nMulticlassClassifiers)
-
-    var group1 = window.multiClassClassifiers[1]
-    var group2 = window.multiClassClassifiers[0]
-
-    var xAxisName1 = window.multiClassClassifiers[0]
-    var xAxisName2 = window.multiClassClassifiers[1]
-
-    var [yAxis1, labels1] = separateDataInGroups(window.filteredData, group1, checkedValues)
-    var [yAxis2, labels2] = separateDataInGroups(window.filteredData, group2, checkedValues)
-
-    var xAxis1 = window.checkedValues[xAxisName1]
-    var xAxis2 = window.checkedValues[xAxisName2]
-
-    //Filtering null and missing values
-    var [yAxis1, xAxis1, labels1] = nullsOut(yAxis1, xAxis1, labels1)
-    var [yAxis2, xAxis2, labels2] = nullsOut(yAxis2, xAxis2, labels2)
-    //End of filtering null and missing values
-    
-    graphCustom(xAxis1, yAxis1, labels1, "myChart", "line", "Comparing by " + group1)
-    graphCustom(xAxis2, yAxis2, labels2, "myChart1", "bar", "Comparing by " + group2, showLegend = true)
-
-    //Rendering up to 3 pieCharts
-    var pieColors = colorGenerator(xAxis1)
-    var nPieCharts = Math.min(yAxis1.length, 3)
-    generatePieChartsContainers(nPieCharts)
-
-    for (var i = 2; i < Math.min(yAxis1.length, 3)+2; i++){
-      graphCustomPie(xAxis1, yAxis1[i-2], "myChart" + i, "pie", labels1[i-2], pieColors)
-    }
-
-  console.log("Rendered graphs")
-  } 
-  ///////For when there is only 1 multiclass classifier
-  if(nMulticlassClassifiers == 1) {
-
-    renderGraphBoxes(nMulticlassClassifiers)
-
-    var group1 = window.multiClassClassifiers[0]
-    var xAxisName1 = categories.filter(i=>i !== group1)[0]
-
-    var [yAxis1, labels1] = separateDataInGroups(window.filteredData, group1, checkedValues)
-
-    var xAxis1 = window.checkedValues[xAxisName1]
-
-    graphCustom(xAxis1, yAxis1, labels1, "myChart", 'bar', "Comparing by " + group1)
-    
-  } if(nMulticlassClassifiers < 1) {
-
-    renderGraphBoxes(1)
-
-    var group1 = categories[0]
-    var xAxisName1 = categories[1]
-
-    var [yAxis1, labels1] = separateDataInGroups(window.filteredData, group1, checkedValues)
-    var xAxis1 = window.checkedValues[xAxisName1]
-
-    graphCustom(xAxis1, yAxis1, labels1, "myChart", 'bar', "Comparing by " + group1)
-    
-  }
-
-}
-
 function nextDependent(categoriesAndOptions, plus, dependentIndex, dependentName){
   Number.prototype.mod = function (n) {
     return ((this % n) + n) % n;
@@ -987,7 +928,6 @@ module.exports = {
   singleLabelExtractor,
   displayNonGraphs,
   shortenLabel,
-  wrapGraph,
   nextDependent
 }
 

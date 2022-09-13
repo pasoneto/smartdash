@@ -61,7 +61,7 @@ function generatePieChartsContainers(nPieCharts){
 }
 
 //Initiate html of TT
-async function initiateDashboard(title, logo, renderMap = false, flipperButton = true, textTranslations, language){
+async function initiateDashboard(title, logo, renderMap = false, flipperButton = false, textTranslations, language){
 
   var bodyHTML = '<body>'+
       '<div id="dimmer"></div>'+
@@ -96,10 +96,10 @@ async function initiateDashboard(title, logo, renderMap = false, flipperButton =
   }
   if(textTranslations){
     bodyHTML += '<div class="column dimensionSelector" id="dimensionSelector">'+
-      '<button class="displayBoxButton" id="selectDimensionButton" onclick=showBoxSelector("dimmer")><i class="fa fa-filter" aria-hidden="true"></i> ' + textTranslations['selectors']['filter'][language] + '</button>'
+      '<button class="displayBoxButton" id="selectDimensionButton"><i class="fa fa-filter" aria-hidden="true"></i> ' + textTranslations['selectors']['filter'][language] + '</button>'
   } else {
     bodyHTML += '<div class="column dimensionSelector" id="dimensionSelector">'+
-      '<button class="displayBoxButton" id="selectDimensionButton" onclick=showBoxSelector("dimmer")><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>'
+      '<button class="displayBoxButton" id="selectDimensionButton"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>'
   }
 
   if(flipperButton){
@@ -113,13 +113,13 @@ async function initiateDashboard(title, logo, renderMap = false, flipperButton =
   }
   
   if(textTranslations){
-    bodyHTML += '<button id="shareDashboardButton" onclick=shareDashboard("url")>' + textTranslations['selectors']['shareURL'][language] + ' <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
-                '<button id="embed" onclick=shareDashboard("embed")>' + textTranslations['selectors']['embedURL'][language] + ' <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+    bodyHTML += '<button id="shareDashboardButton" onclick=Smartdasher.shareDashboard("url")>' + textTranslations['selectors']['shareURL'][language] + ' <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+                '<button id="embed" onclick=Smartdasher.shareDashboard("embed")>' + textTranslations['selectors']['embedURL'][language] + ' <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
                 '<button id="goBackSelection">' + textTranslations['selectors']['backToSelection'][language] + ' <i class="fa fa-hand-o-left" aria-hidden="true"></i></button>'+
                 '</div>'
   } else {
-    bodyHTML += '<button id="shareDashboardButton" onclick=shareDashboard("url")>Share URL <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
-                '<button onclick=shareDashboard("embed")>Embed URL <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+    bodyHTML += '<button id="shareDashboardButton" onclick=Smartdasher.shareDashboard("url")>Share URL <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+                '<button onclick=Smartdasher.shareDashboard("embed")>Embed URL <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
                 '<button id="goBackSelection">Back to selection <i class="fa fa-hand-o-left" aria-hidden="true"></i></button>'+
                 '</div>'
   }
@@ -141,6 +141,11 @@ async function initiateDashboard(title, logo, renderMap = false, flipperButton =
   }
 
 	documentAppender(document.body, bodyHTML)
+
+  document.getElementById("selectDimensionButton").onclick = function(){
+    Smartdasher.showBoxSelector("dimmer");
+    Smartdasher.showBoxSelector("boxTop");
+  }
 
   if(renderMap === false){
     document.getElementById("graphsContainer").style.width = '100vw'
