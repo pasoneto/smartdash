@@ -19,7 +19,7 @@ function extractCategoriesAndOptions(data, dependentVariableName){
 }
 
 //Generates checkboxes for dimension selection
-function generateCheckBoxes(classifiers, options, data, dependentVariable, labels = null, textTranslations = null, language, whereAppend = 'boxTop'){
+function generateCheckBoxes(classifiers, options, data, dependentVariable, labels = null, textTranslations = null, language, wrapGraphFunction){
   var boxTop = document.getElementById("boxTop")
 
   var header = document.createElement('div');
@@ -36,14 +36,8 @@ function generateCheckBoxes(classifiers, options, data, dependentVariable, label
     var buttonText = 'Render graphs</button>';
   }
 
-  function buttonDimensionFunction(){
-    showBoxSelector("boxTop") //Hide box with checkboxes
-    showBoxSelector("dimmer") //Hide box with checkboxes
-  }
-
   paragraphHeader.innerHTML = textHeader
   btnDimensionSelector.innerHTML = buttonText
-  btnDimensionSelector.onclick = buttonDimensionFunction
   header.appendChild(paragraphHeader)
   boxTop.appendChild(header)
   boxTop.appendChild(btnDimensionSelector)
@@ -138,9 +132,19 @@ function generateCheckBoxes(classifiers, options, data, dependentVariable, label
   }
 
   var buttonText = document.createTextNode(buttonText)
-  buttonDimensionSelector.onclick = buttonDimensionFunction
   buttonDimensionSelector.appendChild(buttonText)
   boxTop.appendChild(buttonDimensionSelector)
+
+  //Once data has been fetched and checkboxes created, Select dimension button will receive the following functions
+  var buttonsRenderGraph = document.querySelectorAll(`[id^="buttonDimensionSelector"]`)
+  //Applying render function to these buttons
+  for(k in buttonsRenderGraph){
+    buttonsRenderGraph[k].onclick = function(){
+      wrapGraphFunction() 
+      showBoxSelector("boxTop")
+      showBoxSelector("dimmer")
+    }
+  }
 
   var boxSelector = document.getElementById("boxTop")
   var headerSelector = document.getElementById("categorySelectorHeader")
@@ -151,7 +155,6 @@ function generateCheckBoxes(classifiers, options, data, dependentVariable, label
 //Changes style of checkBox container. Now it appears in front of everything
 function showBoxSelector(id){
   var divToChange = document.getElementById(id)
-  console.log(divToChange)
   if(divToChange.style.display == '') {
     divToChange.style.display = 'block';
   } else {
@@ -224,7 +227,7 @@ function onlyOne(category, checkedValues, classifiers, data, filterFunction){
 
 //Checks number of selected boxes per category. If one category has more than 1 checks, 
 //applies onlyOne to all except that category.
-function onlyOneEnforcer(classifiers, checkedValues, data, filterFunction, textTranslations){
+function onlyOneEnforcer(classifiers, checkedValues, data, filterFunction, textTranslations, howToFunction){
   var multipleCheckCategories = []
   for(k in classifiers){
     var nCheckedByCategory = checkedValues[classifiers[k]].length
@@ -238,7 +241,7 @@ function onlyOneEnforcer(classifiers, checkedValues, data, filterFunction, textT
         var notMultiple = multipleCheckCategories.indexOf(classifiers[k]) !== -1
         if(!notMultiple){
           if(textTranslations !== null){
-            document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (' + textTranslations['checkboxes']['singleSelector'][language] + ') <button id="howToButton"><i class="fa fa-question-circle" aria-hidden="true"></i></button> </font>' //Add text saying that this category is multiple selector
+            document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (' + textTranslations['checkboxes']['singleSelector'][language] + ') <button id="howToButton" onclick=howToFunction()><i class="fa fa-question-circle" aria-hidden="true"></i></button> </font>' //Add text saying that this category is multiple selector
           } else {
             document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (Single selector) <button id="howToButton" onclick=><i class="fa fa-question-circle" aria-hidden="true"></i></button> </font>' //Add text saying that this category is multiple selector
           }
@@ -263,7 +266,7 @@ function allOK(classifiers, checkedValues){
 }
 
 //If no category has more than 1 check, initial function state is established (multiple selection allowed)
-function checkBoxVerificationSystem(classifiers, checkedValues, data, filterFunction, exception = null, textTranslations = null){
+function checkBoxVerificationSystem(classifiers, checkedValues, data, filterFunction, exception = null, textTranslations = null, howToFunction){
 
   var allCheckBoxes = document.querySelectorAll('input');
 
@@ -282,17 +285,17 @@ function checkBoxVerificationSystem(classifiers, checkedValues, data, filterFunc
     for(k in classifiers){
       if(classifiers[k] !== exception){
         if(textTranslations !== null){
-          document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (' + textTranslations['checkboxes']['multipleSelector'][language] + ') </font><p><input type="checkbox" id="selectAll" onclick=multiCheck("' + classifiers[k] + '")></input><div id="selectAllText">' + textTranslations['checkboxes']['all'][language] + ' <i class="fa fa-arrow-right" aria-hidden="true"></i></div></p>' //Add text saying that this category is multiple selector
+          document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (' + textTranslations['checkboxes']['multipleSelector'][language] + ') </font><p><input type="checkbox" id="selectAll" onclick=SmartDasher.multiCheck("' + classifiers[k] + '")></input><div id="selectAllText">' + textTranslations['checkboxes']['all'][language] + ' <i class="fa fa-arrow-right" aria-hidden="true"></i></div></p>' //Add text saying that this category is multiple selector
         } else {
-          document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (Multiple selector) </font><p><input type="checkbox" id="selectAll" onclick=multiCheck("' + classifiers[k] + '")></input><div id="selectAllText">All <i class="fa fa-arrow-right" aria-hidden="true"></i></div></p>' //Add text saying that this category is multiple selector
+          document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (Multiple selector) </font><p><input type="checkbox" id="selectAll" onclick=SmartDasher.multiCheck("' + classifiers[k] + '")></input><div id="selectAllText">All <i class="fa fa-arrow-right" aria-hidden="true"></i></div></p>' //Add text saying that this category is multiple selector
         }
       }
     }
     for(j in allCheckBoxes){
       allCheckBoxes[j].onclick = function(){
         checkedValues = mergeVerifyCheckedBoxes(classifiers)
-        onlyOneEnforcer(classifiers, checkedValues, data, filterFunction, textTranslations)
-        checkBoxVerificationSystem(classifiers, checkedValues, data, filterFunction, exception, textTranslations)
+        onlyOneEnforcer(classifiers, checkedValues, data, filterFunction, textTranslations, howToFunction)
+        checkBoxVerificationSystem(classifiers, checkedValues, data, filterFunction, exception, textTranslations, howToFunction)
         
         //Filters data on every click
         window.filteredData = filterFunction(classifiers, data, window.checkedValues)

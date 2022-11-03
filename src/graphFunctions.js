@@ -61,7 +61,7 @@ function _dataGenerator(yAxis, labels, randomColors, fill){
 function graphCustom(xAxis, yAxis, labels, id, type, title, showLegend = true, fill = false, suggestedMin = null, position = 'bottom'){
   var randomColors = colorGenerator(yAxis);
   var dataConstructor = _dataGenerator(yAxis, labels, randomColors, fill)
-  new Chart(id, {
+  var thisChart = new Chart(id, {
     type: type,
     data: {
       labels: xAxis,
@@ -103,11 +103,12 @@ function graphCustom(xAxis, yAxis, labels, id, type, title, showLegend = true, f
       }
     }
   });
+  return(thisChart);
 };
 
 //Pie chart
 function graphCustomPie(xAxis, yAxis, id, type, title, randomColors, legend = false, position = 'bottom'){
-  new Chart(id, {
+  var thisGraph = new Chart(id, {
     type: type,
     data: {
       labels: xAxis,
@@ -132,7 +133,8 @@ function graphCustomPie(xAxis, yAxis, id, type, title, randomColors, legend = fa
       spanGaps: true, //Interpolates missing data
       maintainAspectRatio: false,
     }
-  })
+  });
+  return(thisGraph);
 }
 
 //Verifies which classifiers were selected as single-classifiers, and what were the options selected made

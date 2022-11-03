@@ -1,4 +1,4 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Smartdasher = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.SmartDasher = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const {extractCategoriesAndOptions, generateCheckBoxes, showBoxSelector, checkedValuesObjectGenerator, verifyCheckedBoxes, mergeVerifyCheckedBoxes, removeChecksExceptCurrent, onlyOne, onlyOneEnforcer, allOK, checkBoxVerificationSystem, dragElement, multiCheck, singleCheck, targetCheck, simulateSelection, pickMultiClassClassifiers, verifyAllClassifiersChecked } = require("./checkBoxSelectors.js")
 const {filterDataByCheckBox, _filterNull, _removeNullColumns, nullsOut, onlyUnique, separateDataInGroups} = require('./dataProcessUtils.js')
 const {documentAppender, renderGraphBoxes, generatePieChartsContainers, initiateDashboard} = require('./generateHTMLstructure.js')
@@ -31,7 +31,7 @@ function extractCategoriesAndOptions(data, dependentVariableName){
 }
 
 //Generates checkboxes for dimension selection
-function generateCheckBoxes(classifiers, options, data, dependentVariable, labels = null, textTranslations = null, language, whereAppend = 'boxTop'){
+function generateCheckBoxes(classifiers, options, data, dependentVariable, labels = null, textTranslations = null, language, wrapGraphFunction){
   var boxTop = document.getElementById("boxTop")
 
   var header = document.createElement('div');
@@ -48,14 +48,8 @@ function generateCheckBoxes(classifiers, options, data, dependentVariable, label
     var buttonText = 'Render graphs</button>';
   }
 
-  function buttonDimensionFunction(){
-    showBoxSelector("boxTop") //Hide box with checkboxes
-    showBoxSelector("dimmer") //Hide box with checkboxes
-  }
-
   paragraphHeader.innerHTML = textHeader
   btnDimensionSelector.innerHTML = buttonText
-  btnDimensionSelector.onclick = buttonDimensionFunction
   header.appendChild(paragraphHeader)
   boxTop.appendChild(header)
   boxTop.appendChild(btnDimensionSelector)
@@ -150,9 +144,19 @@ function generateCheckBoxes(classifiers, options, data, dependentVariable, label
   }
 
   var buttonText = document.createTextNode(buttonText)
-  buttonDimensionSelector.onclick = buttonDimensionFunction
   buttonDimensionSelector.appendChild(buttonText)
   boxTop.appendChild(buttonDimensionSelector)
+
+  //Once data has been fetched and checkboxes created, Select dimension button will receive the following functions
+  var buttonsRenderGraph = document.querySelectorAll(`[id^="buttonDimensionSelector"]`)
+  //Applying render function to these buttons
+  for(k in buttonsRenderGraph){
+    buttonsRenderGraph[k].onclick = function(){
+      wrapGraphFunction() 
+      showBoxSelector("boxTop")
+      showBoxSelector("dimmer")
+    }
+  }
 
   var boxSelector = document.getElementById("boxTop")
   var headerSelector = document.getElementById("categorySelectorHeader")
@@ -163,7 +167,6 @@ function generateCheckBoxes(classifiers, options, data, dependentVariable, label
 //Changes style of checkBox container. Now it appears in front of everything
 function showBoxSelector(id){
   var divToChange = document.getElementById(id)
-  console.log(divToChange)
   if(divToChange.style.display == '') {
     divToChange.style.display = 'block';
   } else {
@@ -236,7 +239,7 @@ function onlyOne(category, checkedValues, classifiers, data, filterFunction){
 
 //Checks number of selected boxes per category. If one category has more than 1 checks, 
 //applies onlyOne to all except that category.
-function onlyOneEnforcer(classifiers, checkedValues, data, filterFunction, textTranslations){
+function onlyOneEnforcer(classifiers, checkedValues, data, filterFunction, textTranslations, howToFunction){
   var multipleCheckCategories = []
   for(k in classifiers){
     var nCheckedByCategory = checkedValues[classifiers[k]].length
@@ -250,7 +253,7 @@ function onlyOneEnforcer(classifiers, checkedValues, data, filterFunction, textT
         var notMultiple = multipleCheckCategories.indexOf(classifiers[k]) !== -1
         if(!notMultiple){
           if(textTranslations !== null){
-            document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (' + textTranslations['checkboxes']['singleSelector'][language] + ') <button id="howToButton"><i class="fa fa-question-circle" aria-hidden="true"></i></button> </font>' //Add text saying that this category is multiple selector
+            document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (' + textTranslations['checkboxes']['singleSelector'][language] + ') <button id="howToButton" onclick=howToFunction()><i class="fa fa-question-circle" aria-hidden="true"></i></button> </font>' //Add text saying that this category is multiple selector
           } else {
             document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (Single selector) <button id="howToButton" onclick=><i class="fa fa-question-circle" aria-hidden="true"></i></button> </font>' //Add text saying that this category is multiple selector
           }
@@ -275,7 +278,7 @@ function allOK(classifiers, checkedValues){
 }
 
 //If no category has more than 1 check, initial function state is established (multiple selection allowed)
-function checkBoxVerificationSystem(classifiers, checkedValues, data, filterFunction, exception = null, textTranslations = null){
+function checkBoxVerificationSystem(classifiers, checkedValues, data, filterFunction, exception = null, textTranslations = null, howToFunction){
 
   var allCheckBoxes = document.querySelectorAll('input');
 
@@ -294,17 +297,17 @@ function checkBoxVerificationSystem(classifiers, checkedValues, data, filterFunc
     for(k in classifiers){
       if(classifiers[k] !== exception){
         if(textTranslations !== null){
-          document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (' + textTranslations['checkboxes']['multipleSelector'][language] + ') </font><p><input type="checkbox" id="selectAll" onclick=multiCheck("' + classifiers[k] + '")></input><div id="selectAllText">' + textTranslations['checkboxes']['all'][language] + ' <i class="fa fa-arrow-right" aria-hidden="true"></i></div></p>' //Add text saying that this category is multiple selector
+          document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (' + textTranslations['checkboxes']['multipleSelector'][language] + ') </font><p><input type="checkbox" id="selectAll" onclick=SmartDasher.multiCheck("' + classifiers[k] + '")></input><div id="selectAllText">' + textTranslations['checkboxes']['all'][language] + ' <i class="fa fa-arrow-right" aria-hidden="true"></i></div></p>' //Add text saying that this category is multiple selector
         } else {
-          document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (Multiple selector) </font><p><input type="checkbox" id="selectAll" onclick=multiCheck("' + classifiers[k] + '")></input><div id="selectAllText">All <i class="fa fa-arrow-right" aria-hidden="true"></i></div></p>' //Add text saying that this category is multiple selector
+          document.getElementById(classifiers[k] + 'Label' + "SingleMultiple").innerHTML = '<font color="blue"> (Multiple selector) </font><p><input type="checkbox" id="selectAll" onclick=SmartDasher.multiCheck("' + classifiers[k] + '")></input><div id="selectAllText">All <i class="fa fa-arrow-right" aria-hidden="true"></i></div></p>' //Add text saying that this category is multiple selector
         }
       }
     }
     for(j in allCheckBoxes){
       allCheckBoxes[j].onclick = function(){
         checkedValues = mergeVerifyCheckedBoxes(classifiers)
-        onlyOneEnforcer(classifiers, checkedValues, data, filterFunction, textTranslations)
-        checkBoxVerificationSystem(classifiers, checkedValues, data, filterFunction, exception, textTranslations)
+        onlyOneEnforcer(classifiers, checkedValues, data, filterFunction, textTranslations, howToFunction)
+        checkBoxVerificationSystem(classifiers, checkedValues, data, filterFunction, exception, textTranslations, howToFunction)
         
         //Filters data on every click
         window.filteredData = filterFunction(classifiers, data, window.checkedValues)
@@ -568,29 +571,44 @@ function renderGraphBoxes(nMulticlassClassifiers, map=true){
     html += '<div class="row" id="mainGraphs">'+
              '<div class="column graphBox" id="box">'+
                '<canvas id="myChart"></canvas>'+
-               '</div>'+
-               '<div class="column graphBox" id="box1">'+
+               '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
+              '</div>'+
+              '<div class="column graphBox" id="box1">'+
                '<canvas id="myChart1"></canvas>'+
-               '</div>'+
+               '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
+              '</div>'+
            '</div>'+
            '<div class="row" id="pieChartsContainer">'+
-             '<div class="column graphBox3" id="box2"></div>'+
-             '<div class="column graphBox3" id="box3"></div>'+
-             '<div class="column graphBox3" id="box4"></div>'+
+           '<div class="column graphBox3" id="box2">'+
+              '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
+           '</div>'+
+           '<div class="column graphBox3" id="box3">'+
+              '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
+           '</div>'+
+           '<div class="column graphBox3" id="box4">'+
+              '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
+           '</div>'+
            '</div>'+
            '</div>'
   } 
   if(nMulticlassClassifiers == 1){
     html += '<div class="row" id="mainGraphs">'+
                /*Locally changing width to 100%. Think of more general solution*/
-               '<div class="column graphBox" id="box" style="width: 100%">'+
-                 '<canvas id="myChart"></canvas>'+
+               '<div class="column graphBox" id="box" style="width: 100%; height: 100%">'+
+                  '<canvas id="myChart"></canvas>'+
+                  '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
                '</div>'+
              '</div>'+
              '<div class="row" id="pieChartsContainer">'+
-               '<div class="column graphBox3" id="box2"></div>'+
-               '<div class="column graphBox3" id="box3"></div>'+
-               '<div class="column graphBox3" id="box4"></div>'+
+                '<div class="column graphBox3" id="box2">'+
+                  '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
+                '</div>'+
+                '<div class="column graphBox3" id="box3">'+
+                  '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
+                '</div>'+
+                '<div class="column graphBox3" id="box4">'+
+                  '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
+                '</div>'+
              '</div>'+
              '</div>'
   }
@@ -598,6 +616,7 @@ function renderGraphBoxes(nMulticlassClassifiers, map=true){
     html = '<div class="row">'+
               '<div class="graphSingleBox" id="box">'+
               '<canvas id="myChart"></canvas>'+
+              '<div id="downloadButton"><i class="fa fa-downlad" aria-hidden="true"></i></div>'+
               '</div>'+
            '</div>'
   }
@@ -609,6 +628,7 @@ function generatePieChartsContainers(nPieCharts){
   for (var i = 2; i < nPieCharts+2; i++){
     htmlPieCharts += '<div class="column graphBox3" id="box' + i + '">'+
                      '<canvas id="myChart' + i + '"></canvas>'+
+                     '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
                      '</div>'
   }
   document.getElementById("pieChartsContainer").innerHTML = htmlPieCharts
@@ -638,18 +658,20 @@ async function initiateDashboard(title, logo, renderMap = false, flipperButton =
       '</div>'+
       '<!-- Box on top of everything. Shows graph based on map hover -->'+
 
-      '<div class="row">'+
-        '<div class="column statisticsSelector" id="statisticsSelector">'+
-            '<div class="dropdown">'+
-              '<button class="dropbtn">Select year</button>'+
-              '<div id="dropdown-content"></div>'+
-            '</div>'+
-            '<div id="showRegionHover"></div>'+
-      //'<div id="selector-map"></div>'+
-      '</div>'
+      '<div class="row">'
+        //'<div class="column statisticsSelector" id="statisticsSelector">'+
+            //'<div class="dropdown">'+
+              //'<button class="dropbtn">Select year</button>'+
+              //'<div id="dropdown-content"></div>'+
+            //'</div>'+
+            //'<div id="showRegionHover"></div>'+
+        //'<div id="selector-map"></div>'+
+        //'</div>'
   }
   if(textTranslations){
-    bodyHTML += '<div class="column dimensionSelector" id="dimensionSelector">'+
+    bodyHTML += 
+      '<div id="mapAndGraphWrap">'+
+      '<div class="column dimensionSelector" id="dimensionSelector">'+
       '<button class="displayBoxButton" id="selectDimensionButton"><i class="fa fa-filter" aria-hidden="true"></i> ' + textTranslations['selectors']['filter'][language] + '</button>'
   } else {
     bodyHTML += '<div class="column dimensionSelector" id="dimensionSelector">'+
@@ -667,38 +689,40 @@ async function initiateDashboard(title, logo, renderMap = false, flipperButton =
   }
   
   if(textTranslations){
-    bodyHTML += '<button id="shareDashboardButton" onclick=Smartdasher.shareDashboard("url")>' + textTranslations['selectors']['shareURL'][language] + ' <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
-                '<button id="embed" onclick=Smartdasher.shareDashboard("embed")>' + textTranslations['selectors']['embedURL'][language] + ' <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+    bodyHTML += '<button id="shareDashboardButton" onclick=SmartDasher.shareDashboard("url")>' + textTranslations['selectors']['shareURL'][language] + ' <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+                '<button id="embed" onclick=SmartDasher.shareDashboard("embed")>' + textTranslations['selectors']['embedURL'][language] + ' <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
                 '<button id="goBackSelection">' + textTranslations['selectors']['backToSelection'][language] + ' <i class="fa fa-hand-o-left" aria-hidden="true"></i></button>'+
                 '</div>'
   } else {
-    bodyHTML += '<button id="shareDashboardButton" onclick=Smartdasher.shareDashboard("url")>Share URL <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
-                '<button onclick=Smartdasher.shareDashboard("embed")>Embed URL <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+    bodyHTML += '<button id="shareDashboardButton" onclick=SmartDasher.shareDashboard("url")>Share URL <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+                '<button onclick=SmartDasher.shareDashboard("embed")>Embed URL <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
                 '<button id="goBackSelection">Back to selection <i class="fa fa-hand-o-left" aria-hidden="true"></i></button>'+
                 '</div>'
   }
 
   if(renderMap){
-    bodyHTML += '<div class="column mapBox" id="mapBox">'+
-                '</div>'
+    bodyHTML += '<div id="graphMapBoxes">'
+    bodyHTML += '<div id="mapBox"></div>'
   }
   bodyHTML += '<div id="selectedVariables"></div>'
-  bodyHTML += '<div class="column graphsBox" id="graphsContainer">'+
-          'Graphs'+
-        '</div>'+
-      '</div>'
+  bodyHTML += '<div class="column graphsBox" id="graphsContainer">Graphs</div>'
+  bodyHTML += '</div>' //Close graphMapBoxes
+  if(renderMap){
+    bodyHTML += '</div>' //Close mapAndGraphWrap
+  }
+  bodyHTML += '</div>'
 
   if(textTranslations){
-    bodyHTML += '<div id="footer"><div id="footerText">' + textTranslations['source']['source'][language] + '</div></div>'
+    //bodyHTML += '<div id="footer"><div id="footerText">' + textTranslations['source']['source'][language] + '</div></div>'
   } else {
-    bodyHTML += '<div id="footer"><div id="footerText">Source:</div></div>'
+    //bodyHTML += '<div id="footer"><div id="footerText">Source:</div></div>'
   }
 
 	documentAppender(document.body, bodyHTML)
 
   document.getElementById("selectDimensionButton").onclick = function(){
-    Smartdasher.showBoxSelector("dimmer");
-    Smartdasher.showBoxSelector("boxTop");
+    SmartDasher.showBoxSelector("dimmer");
+    SmartDasher.showBoxSelector("boxTop");
   }
 
   if(renderMap === false){
@@ -717,6 +741,9 @@ module.exports = {
   generatePieChartsContainers,
   initiateDashboard
 }
+
+
+
 
 },{}],5:[function(require,module,exports){
 //Choose color to fill in graph
@@ -782,7 +809,7 @@ function _dataGenerator(yAxis, labels, randomColors, fill){
 function graphCustom(xAxis, yAxis, labels, id, type, title, showLegend = true, fill = false, suggestedMin = null, position = 'bottom'){
   var randomColors = colorGenerator(yAxis);
   var dataConstructor = _dataGenerator(yAxis, labels, randomColors, fill)
-  new Chart(id, {
+  var thisChart = new Chart(id, {
     type: type,
     data: {
       labels: xAxis,
@@ -824,11 +851,12 @@ function graphCustom(xAxis, yAxis, labels, id, type, title, showLegend = true, f
       }
     }
   });
+  return(thisChart);
 };
 
 //Pie chart
 function graphCustomPie(xAxis, yAxis, id, type, title, randomColors, legend = false, position = 'bottom'){
-  new Chart(id, {
+  var thisGraph = new Chart(id, {
     type: type,
     data: {
       labels: xAxis,
@@ -853,7 +881,8 @@ function graphCustomPie(xAxis, yAxis, id, type, title, randomColors, legend = fa
       spanGaps: true, //Interpolates missing data
       maintainAspectRatio: false,
     }
-  })
+  });
+  return(thisGraph);
 }
 
 //Verifies which classifiers were selected as single-classifiers, and what were the options selected made

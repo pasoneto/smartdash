@@ -14,29 +14,44 @@ function renderGraphBoxes(nMulticlassClassifiers, map=true){
     html += '<div class="row" id="mainGraphs">'+
              '<div class="column graphBox" id="box">'+
                '<canvas id="myChart"></canvas>'+
-               '</div>'+
-               '<div class="column graphBox" id="box1">'+
+               '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
+              '</div>'+
+              '<div class="column graphBox" id="box1">'+
                '<canvas id="myChart1"></canvas>'+
-               '</div>'+
+               '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
+              '</div>'+
            '</div>'+
            '<div class="row" id="pieChartsContainer">'+
-             '<div class="column graphBox3" id="box2"></div>'+
-             '<div class="column graphBox3" id="box3"></div>'+
-             '<div class="column graphBox3" id="box4"></div>'+
+           '<div class="column graphBox3" id="box2">'+
+              '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
+           '</div>'+
+           '<div class="column graphBox3" id="box3">'+
+              '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
+           '</div>'+
+           '<div class="column graphBox3" id="box4">'+
+              '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
+           '</div>'+
            '</div>'+
            '</div>'
   } 
   if(nMulticlassClassifiers == 1){
     html += '<div class="row" id="mainGraphs">'+
                /*Locally changing width to 100%. Think of more general solution*/
-               '<div class="column graphBox" id="box" style="width: 100%">'+
-                 '<canvas id="myChart"></canvas>'+
+               '<div class="column graphBox" id="box" style="width: 100%; height: 100%">'+
+                  '<canvas id="myChart"></canvas>'+
+                  '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
                '</div>'+
              '</div>'+
              '<div class="row" id="pieChartsContainer">'+
-               '<div class="column graphBox3" id="box2"></div>'+
-               '<div class="column graphBox3" id="box3"></div>'+
-               '<div class="column graphBox3" id="box4"></div>'+
+                '<div class="column graphBox3" id="box2">'+
+                  '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
+                '</div>'+
+                '<div class="column graphBox3" id="box3">'+
+                  '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
+                '</div>'+
+                '<div class="column graphBox3" id="box4">'+
+                  '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
+                '</div>'+
              '</div>'+
              '</div>'
   }
@@ -44,6 +59,7 @@ function renderGraphBoxes(nMulticlassClassifiers, map=true){
     html = '<div class="row">'+
               '<div class="graphSingleBox" id="box">'+
               '<canvas id="myChart"></canvas>'+
+              '<div id="downloadButton"><i class="fa fa-downlad" aria-hidden="true"></i></div>'+
               '</div>'+
            '</div>'
   }
@@ -55,6 +71,7 @@ function generatePieChartsContainers(nPieCharts){
   for (var i = 2; i < nPieCharts+2; i++){
     htmlPieCharts += '<div class="column graphBox3" id="box' + i + '">'+
                      '<canvas id="myChart' + i + '"></canvas>'+
+                     '<button id="downloadButton"><i class="fa fa-download" aria-hidden="true"></i></button>'+
                      '</div>'
   }
   document.getElementById("pieChartsContainer").innerHTML = htmlPieCharts
@@ -84,18 +101,20 @@ async function initiateDashboard(title, logo, renderMap = false, flipperButton =
       '</div>'+
       '<!-- Box on top of everything. Shows graph based on map hover -->'+
 
-      '<div class="row">'+
-        '<div class="column statisticsSelector" id="statisticsSelector">'+
-            '<div class="dropdown">'+
-              '<button class="dropbtn">Select year</button>'+
-              '<div id="dropdown-content"></div>'+
-            '</div>'+
-            '<div id="showRegionHover"></div>'+
-      //'<div id="selector-map"></div>'+
-      '</div>'
+      '<div class="row">'
+        //'<div class="column statisticsSelector" id="statisticsSelector">'+
+            //'<div class="dropdown">'+
+              //'<button class="dropbtn">Select year</button>'+
+              //'<div id="dropdown-content"></div>'+
+            //'</div>'+
+            //'<div id="showRegionHover"></div>'+
+        //'<div id="selector-map"></div>'+
+        //'</div>'
   }
   if(textTranslations){
-    bodyHTML += '<div class="column dimensionSelector" id="dimensionSelector">'+
+    bodyHTML += 
+      '<div id="mapAndGraphWrap">'+
+      '<div class="column dimensionSelector" id="dimensionSelector">'+
       '<button class="displayBoxButton" id="selectDimensionButton"><i class="fa fa-filter" aria-hidden="true"></i> ' + textTranslations['selectors']['filter'][language] + '</button>'
   } else {
     bodyHTML += '<div class="column dimensionSelector" id="dimensionSelector">'+
@@ -113,38 +132,40 @@ async function initiateDashboard(title, logo, renderMap = false, flipperButton =
   }
   
   if(textTranslations){
-    bodyHTML += '<button id="shareDashboardButton" onclick=Smartdasher.shareDashboard("url")>' + textTranslations['selectors']['shareURL'][language] + ' <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
-                '<button id="embed" onclick=Smartdasher.shareDashboard("embed")>' + textTranslations['selectors']['embedURL'][language] + ' <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+    bodyHTML += '<button id="shareDashboardButton" onclick=SmartDasher.shareDashboard("url")>' + textTranslations['selectors']['shareURL'][language] + ' <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+                '<button id="embed" onclick=SmartDasher.shareDashboard("embed")>' + textTranslations['selectors']['embedURL'][language] + ' <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
                 '<button id="goBackSelection">' + textTranslations['selectors']['backToSelection'][language] + ' <i class="fa fa-hand-o-left" aria-hidden="true"></i></button>'+
                 '</div>'
   } else {
-    bodyHTML += '<button id="shareDashboardButton" onclick=Smartdasher.shareDashboard("url")>Share URL <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
-                '<button onclick=Smartdasher.shareDashboard("embed")>Embed URL <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+    bodyHTML += '<button id="shareDashboardButton" onclick=SmartDasher.shareDashboard("url")>Share URL <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+                '<button onclick=SmartDasher.shareDashboard("embed")>Embed URL <i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
                 '<button id="goBackSelection">Back to selection <i class="fa fa-hand-o-left" aria-hidden="true"></i></button>'+
                 '</div>'
   }
 
   if(renderMap){
-    bodyHTML += '<div class="column mapBox" id="mapBox">'+
-                '</div>'
+    bodyHTML += '<div id="graphMapBoxes">'
+    bodyHTML += '<div id="mapBox"></div>'
   }
   bodyHTML += '<div id="selectedVariables"></div>'
-  bodyHTML += '<div class="column graphsBox" id="graphsContainer">'+
-          'Graphs'+
-        '</div>'+
-      '</div>'
+  bodyHTML += '<div class="column graphsBox" id="graphsContainer">Graphs</div>'
+  bodyHTML += '</div>' //Close graphMapBoxes
+  if(renderMap){
+    bodyHTML += '</div>' //Close mapAndGraphWrap
+  }
+  bodyHTML += '</div>'
 
   if(textTranslations){
-    bodyHTML += '<div id="footer"><div id="footerText">' + textTranslations['source']['source'][language] + '</div></div>'
+    //bodyHTML += '<div id="footer"><div id="footerText">' + textTranslations['source']['source'][language] + '</div></div>'
   } else {
-    bodyHTML += '<div id="footer"><div id="footerText">Source:</div></div>'
+    //bodyHTML += '<div id="footer"><div id="footerText">Source:</div></div>'
   }
 
 	documentAppender(document.body, bodyHTML)
 
   document.getElementById("selectDimensionButton").onclick = function(){
-    Smartdasher.showBoxSelector("dimmer");
-    Smartdasher.showBoxSelector("boxTop");
+    SmartDasher.showBoxSelector("dimmer");
+    SmartDasher.showBoxSelector("boxTop");
   }
 
   if(renderMap === false){
@@ -163,3 +184,6 @@ module.exports = {
   generatePieChartsContainers,
   initiateDashboard
 }
+
+
+
