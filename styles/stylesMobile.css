@@ -73,7 +73,7 @@
   #statisticsSelector{ /*Mobile has no map selector*/
     display: none
   }
-  .mapBox  {
+  #mapBox  {
     display: none
   }
   #graphsContainer{

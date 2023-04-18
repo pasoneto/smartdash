@@ -5,7 +5,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 80%
+  width: 80%;
 }
 .graphBox {
   background: #EDF6FC;
@@ -50,12 +50,8 @@
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 .graphBox.mainGraph {
-  width: 98%;
 }
-
 .graphsBox { 
-  width: 80%;
-  left: 50%;
 }
 
 #boxTopMap {
@@ -115,4 +111,22 @@
 }
 #noGraph:hover{
   color: white;
+}
+#downloadButton{
+  background: none;
+  right: 0px;
+  color: black;
+  left: 93%;
+  bottom: 15px;
+}
+#downloadButton:hover {
+  color: darkblue;
+}
+#mapAndGraphWrap{
+  display: flex;
+  flex-direction: column; /*NEW*/
+}
+#graphMapBoxes{ /*NEW*/
+  display: flex;
+  align-items: center;
 }

@@ -378,10 +378,13 @@ function targetCheck(categoryName, options){
 
 async function simulateSelection(multi, single){
   while (true) {
+    console.log("Trying:")
+    console.log(multi)
+    console.log(single)
     multi.map(i => multiCheck(i))
     single.map(i => singleCheck(i))
     
-    var allNull = filteredData.filter(i=> i.value !== null && i.value !== 0)
+    var allNull = filteredData.filter(i=> i.value !== null && i.value !== 0 && i.value !== '..')
 
     if(allNull.length <= 5){
       var allCheckBoxes = Array.from(document.querySelectorAll('input[type="checkbox"]'))

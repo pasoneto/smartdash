@@ -11,15 +11,12 @@
 #new-map {
   margin: auto;
 }
-.mapBox  {
-  width: 19%;
+#mapBox  {
   height: 72vh;
-  margin: 1px;
-  margin-top: 35px;
-  margin-left: 5px;
-  background: blue;
+  margin-left: 10px;
   border-radius: 10px;
   resize:none;
+  width: 20vw
 }
 #map-chart {
   margin: 0;

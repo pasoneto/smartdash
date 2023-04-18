@@ -390,10 +390,13 @@ function targetCheck(categoryName, options){
 
 async function simulateSelection(multi, single){
   while (true) {
+    console.log("Trying:")
+    console.log(multi)
+    console.log(single)
     multi.map(i => multiCheck(i))
     single.map(i => singleCheck(i))
     
-    var allNull = filteredData.filter(i=> i.value !== null && i.value !== 0)
+    var allNull = filteredData.filter(i=> i.value !== null && i.value !== 0 && i.value !== '..')
 
     if(allNull.length <= 5){
       var allCheckBoxes = Array.from(document.querySelectorAll('input[type="checkbox"]'))
@@ -794,7 +797,8 @@ function _dataGenerator(yAxis, labels, randomColors, fill){
           tension: 0,
           data: yAxis[i],
           borderColor: randomColors[i],
-          backgroundColor: _convertToOpacity(randomColors[i], 0.3),
+          //backgroundColor: _convertToOpacity(randomColors[i], 0.3),
+          backgroundColor: randomColors[i],
           fill: fill,
           borderWidth: borderWidth,
           pointRadius: pointRadius,
@@ -806,7 +810,7 @@ function _dataGenerator(yAxis, labels, randomColors, fill){
 
 // Chart.defaults.global.defaultFontColor = "black";
 //Generates graph and appends to given element by ID
-function graphCustom(xAxis, yAxis, labels, id, type, title, showLegend = true, fill = false, suggestedMin = null, position = 'bottom'){
+function graphCustom(xAxis, yAxis, labels, id, type, title, showLegend = true, fill = false, suggestedMin = null, position = 'bottom', yAxisTitle = ""){
   var randomColors = colorGenerator(yAxis);
   var dataConstructor = _dataGenerator(yAxis, labels, randomColors, fill)
   var thisChart = new Chart(id, {
@@ -834,7 +838,7 @@ function graphCustom(xAxis, yAxis, labels, id, type, title, showLegend = true, f
       xAxes: [{
         ticks: {
           autoSkip: false,
-          minRotation: 45,
+          minRotation: 0,
         },
         gridLines: {
           display: false,
@@ -846,7 +850,8 @@ function graphCustom(xAxis, yAxis, labels, id, type, title, showLegend = true, f
         },
         ticks: {
           //suggestedMin: suggestedMin, //Uncoment to make y axis always show 0 value
-        }
+        },
+        title: yAxisTitle
       }],
       }
     }
@@ -918,14 +923,47 @@ function displayNonGraphs(filteredData, whereToAppend, textTranslations, languag
   }
 }
 
-//Shorten label
-function shortenLabel(text, max){
-  if(text.length > max){
-    var text = text.slice(0, max) + '...'
-    return text
-  } else {
-    return text
-  }
+function shortenLabel(str, maxwidth){
+  var sections = [];
+  var words = str.split(" ");
+  var temp = "";
+
+  words.forEach(function(item, index){
+    if(temp.length > 0)
+    {
+      var concat = temp + ' ' + item;
+
+      if(concat.length > maxwidth){
+        sections.push(temp);
+        temp = "";
+      }
+      else{
+        if(index == (words.length-1)) {
+          sections.push(concat);
+          return;
+        }
+        else {
+          temp = concat;
+          return;
+        }
+      }
+    }
+
+    if(index == (words.length-1)) {
+      sections.push(item);
+      return;
+    }
+
+    if(item.length < maxwidth) {
+      temp = item;
+    }
+    else {
+      sections.push(item);
+    }
+
+  });
+
+  return sections;
 }
 
 function nextDependent(categoriesAndOptions, plus, dependentIndex, dependentName){

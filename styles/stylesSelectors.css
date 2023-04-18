@@ -5,7 +5,7 @@
   flex-wrap: nowrap;
   align-items: center;
   height: 12%;
-  width: 80vw;
+  width: 100vw; /*NEW*/
   margin: 1px;
   margin-bottom: 5px;
   margin-top: 0px;
@@ -17,11 +17,10 @@
 /*Statistics selector box*/
 #statisticsSelector{
  height: 12%;
- width: 20%;
+ width: 20vw;
 }
 /*Single dimensions selector box*/
 #selectedVariables{
- width: 100%;
  text-align: center;
 }
 #dropdown-btn {
