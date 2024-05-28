@@ -59,7 +59,7 @@ function _dataGenerator(yAxis, labels, randomColors, fill){
 
 // Chart.defaults.global.defaultFontColor = "black";
 //Generates graph and appends to given element by ID
-function graphCustom(xAxis, yAxis, labels, id, type, title, showLegend = true, fill = false, suggestedMin = null, position = 'bottom', yAxisTitle = ""){
+function graphCustom(xAxis, yAxis, labels, id, type, title, showLegend = true, fill = false, suggestedMin = null, position = 'bottom', yAxisTitle = "", thousandSeparator){
   var randomColors = colorGenerator(yAxis);
   var dataConstructor = _dataGenerator(yAxis, labels, randomColors, fill)
   var thisChart = new Chart(id, {
@@ -98,9 +98,15 @@ function graphCustom(xAxis, yAxis, labels, id, type, title, showLegend = true, f
           display: true,
         },
         ticks: {
-          //suggestedMin: suggestedMin, //Uncoment to make y axis always show 0 value
+         //suggestedMin: suggestedMin, //Uncoment to make y axis always show 0 value
+         callback: function(value, index, values) {
+           return value.toLocaleString(thousandSeparator);
+         }
         },
-        title: yAxisTitle
+        scaleLabel: {
+          display: true,
+          labelString: yAxisTitle
+        }
       }],
       }
     }

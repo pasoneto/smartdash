@@ -509,6 +509,10 @@ button:active:after {
   }
   #shareDashboardButton{
     margin-left: 0;
+    display: none
+  }
+  #goBackSelection{
+    display: none
   }
   .header{
     height: fit-content;
